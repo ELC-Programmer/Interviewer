@@ -25,7 +25,7 @@ var StackView = function(options)
 StackView.prototype.options = {};
 
 /**
- * @property {(boolean|string)} HTMLSource - The HTML source for this view.
+ * @property {string} HTMLSource - The HTML source for this view.
  * @abstract
  */
 StackView.prototype.HTMLSource = "OVERRIDE THIS";
@@ -41,21 +41,17 @@ StackView.prototype.HTMLSource = "OVERRIDE THIS";
 		$contents = str_replace(array("\r", "\n"), "", $contents);
 		$contents = addslashes($contents);
 		
-		echo '"' . $contents . '"';
+		echo $contents;
 	}
 ?>
  
 /**
  * @property {StackApplication} application - The StackApplication this view is in, or false if the view is not currently in an application.
- * @see addToApplication
- * @see removeFromApplication
  */
 StackView.prototype.application = false; 
 
 /**
  * @property {(boolean|DOMObject)} DOMObject - The DOM Object of the view, or false if the view is not currently in the document.
- * @see addToApplication
- * @see removeFromApplication
  */
 StackView.prototype.DOMObject = false;
 

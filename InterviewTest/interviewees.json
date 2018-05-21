@@ -3,7 +3,7 @@
 		name: "John Smith",
 		title: "CEO",
 		profileImage: "images/smith.jpg",
-		videoDirectory: "videos/smith",
+		videoDirectory: "videos/smith/",
 		questions: [
 			{
 				prompt: "Good morning, Smith. How are you?",
@@ -19,7 +19,7 @@
 		name: "Carol Clark",
 		title: "CFO",
 		profileImage: "images/clark.jpg",
-		videoDirectory: "videos/clark",
+		videoDirectory: "videos/clark/",
 		questions: [
 			{
 				prompt: "Good morning, Clark. How are you?",
