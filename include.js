@@ -11,3 +11,4 @@ require_once(__DIR__ . "/VideoMessageView.js");
 require_once(__DIR__ . "/Interviewee.js");
 require_once(__DIR__ . "/IntervieweeSelectionView.js");
 require_once(__DIR__ . "/InterviewView.js");
+require_once(__DIR__ . "/Styling.js");

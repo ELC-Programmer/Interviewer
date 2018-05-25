@@ -6,17 +6,44 @@
 	.interviewee-disabled {
 		background-color: pink;
 	}
+	.tr {
+		text-align:center;
+		padding:10px;
+		width:20vw;
+		display:inline-block;
+		margin:10px;
+	}
+	.td{
+		/*height:60vh;*/
+	}
+	img{
+		max-width:100%;
+		height:30%;
+	}
+	.button{
+		cursor:pointer;
+	}
+	.title{
+		width:100%;
+		text-align:center;
+	}
+	.table{
+		display:flex;
+		justify-content:center;
+		flex-flow:row wrap;
+		justify-content: space-around;
+	}
 </style>
 
-<table>
-	<tr class="interviewee-prototype">
-		<td>
-			<a class="button">
-				<h3 class="name"></h3>
-			</a>
-			<p class="title"></p>
+
+<h3 class="title">Select an Interviewee</h3>
+<div class="border table">
+	<div class="interviewee-prototype border tr">
+		<div class="button td">
 			<img class="image" />
+			<h3 class="name"></h3>
+			<p class="title"></p>
 			<p><span class="time">XX:XX</span> Remaining</p>
-		</td>
-	</tr>
-</table>
+		</div>
+	</div>
+</div>

@@ -40,7 +40,8 @@ VideoMessageView.prototype.onAddToApplication = function()
 {
 	let scope = this;
 	
-	this.DOMObject.find(".video").text(this.options.videoURL); // TODO
+	// this.DOMObject.find(".video").text(this.options.videoURL); // TODO
+	this.DOMObject.find(".video-element").html('<source src="'+this.options.videoURL+'" type="video/mp4"></source>');
 	
 	this.DOMObject.find(".continue")
 		.attr("value", this.options.continuePrompt)

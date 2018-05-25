@@ -1,6 +1,6 @@
 <script>
 	<?php
-		require_once(__DIR__ . '/../_lib/Interviewer/include.js.php');
+		require_once(__DIR__ . '/../include.js');
 		require_once(__DIR__ . '/InterviewTestApplication.js.php');
 	?>
 	
@@ -10,6 +10,9 @@
 		window.application = application;
 	});
 </script>
+<link rel="stylesheet" type="text/css" href="styleSheet.css">
+<div id="all-container">
+	<h1 id="app-title" style="text-align:center">Application Title</h1>
 
-<h1>This is outside the stack application!</h1>
-<div id="application" style="border: 1px solid black; background-color: yellow"></div>
+	<div id="application"></div>
+<div>

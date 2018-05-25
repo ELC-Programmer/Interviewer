@@ -2,7 +2,39 @@
 	{
 		name: "John Smith",
 		title: "CEO",
-		profileImage: "images/smith.jpg",
+		profileImage: "images/smith.jpeg",
+		videoDirectory: "videos/smith/",
+		questions: [
+			{
+				prompt: "Good morning, Smith. How are you?",
+				responseVideo: "good_morning.mp4"
+			},
+			{
+				prompt: "So, Smith, what do you do around here?",
+				responseVideo: "what_do_you_do.mp4"
+			}
+		]
+	},
+	{
+		name: "John Smith",
+		title: "CEO",
+		profileImage: "images/smith.jpeg",
+		videoDirectory: "videos/smith/",
+		questions: [
+			{
+				prompt: "Good morning, Smith. How are you?",
+				responseVideo: "good_morning.mp4"
+			},
+			{
+				prompt: "So, Smith, what do you do around here?",
+				responseVideo: "what_do_you_do.mp4"
+			}
+		]
+	},
+	{
+		name: "John Smith",
+		title: "CEO",
+		profileImage: "images/smith.jpeg",
 		videoDirectory: "videos/smith/",
 		questions: [
 			{
@@ -18,7 +50,103 @@
 	{
 		name: "Carol Clark",
 		title: "CFO",
-		profileImage: "images/clark.jpg",
+		profileImage: "images/carol.jpg",
+		videoDirectory: "videos/clark/",
+		questions: [
+			{
+				prompt: "Good morning, Clark. How are you?",
+				responseVideo: "good_morning.mp4"
+			},
+			{
+				prompt: "So, Clark, what do you do around here?",
+				responseVideo: "what_do_you_do.mp4"
+			}
+		]
+	},
+	{
+		name: "John Smith",
+		title: "CEO",
+		profileImage: "images/smith.jpeg",
+		videoDirectory: "videos/smith/",
+		questions: [
+			{
+				prompt: "Good morning, Smith. How are you?",
+				responseVideo: "good_morning.mp4"
+			},
+			{
+				prompt: "So, Smith, what do you do around here?",
+				responseVideo: "what_do_you_do.mp4"
+			}
+		]
+	},
+	{
+		name: "John Smith",
+		title: "CEO",
+		profileImage: "images/smith.jpeg",
+		videoDirectory: "videos/smith/",
+		questions: [
+			{
+				prompt: "Good morning, Smith. How are you?",
+				responseVideo: "good_morning.mp4"
+			},
+			{
+				prompt: "So, Smith, what do you do around here?",
+				responseVideo: "what_do_you_do.mp4"
+			}
+		]
+	},
+	{
+		name: "Carol Clark",
+		title: "CFO",
+		profileImage: "images/carol.jpg",
+		videoDirectory: "videos/clark/",
+		questions: [
+			{
+				prompt: "Good morning, Clark. How are you?",
+				responseVideo: "good_morning.mp4"
+			},
+			{
+				prompt: "So, Clark, what do you do around here?",
+				responseVideo: "what_do_you_do.mp4"
+			}
+		]
+	},
+	{
+		name: "John Smith",
+		title: "CEO",
+		profileImage: "images/smith.jpeg",
+		videoDirectory: "videos/smith/",
+		questions: [
+			{
+				prompt: "Good morning, Smith. How are you?",
+				responseVideo: "good_morning.mp4"
+			},
+			{
+				prompt: "So, Smith, what do you do around here?",
+				responseVideo: "what_do_you_do.mp4"
+			}
+		]
+	},
+	{
+		name: "John Smith",
+		title: "CEO",
+		profileImage: "images/smith.jpeg",
+		videoDirectory: "videos/smith/",
+		questions: [
+			{
+				prompt: "Good morning, Smith. How are you?",
+				responseVideo: "good_morning.mp4"
+			},
+			{
+				prompt: "So, Smith, what do you do around here?",
+				responseVideo: "what_do_you_do.mp4"
+			}
+		]
+	},
+	{
+		name: "Carol Clark",
+		title: "CFO",
+		profileImage: "images/carol.jpg",
 		videoDirectory: "videos/clark/",
 		questions: [
 			{

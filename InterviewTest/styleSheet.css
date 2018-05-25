@@ -1,0 +1,45 @@
+.gen-button{
+	height:50px;
+	border-radius:5px;
+	cursor:pointer;	
+	font-size:1.5em;
+	padding:10px;
+}
+
+.video{
+	margin:auto;
+	max-height:60%;
+	min-height:50%;
+	background-color:#18020C;
+	color:white;
+	margin-top:1em;
+}
+.center-button-full-width{
+	text-align:center;
+	margin:1.5em;
+}
+.success{
+	background-color: #5cb85c;
+	border-color:#4cae4c;
+}
+.intro-video{
+	width:90%;
+}
+.interview-video{
+	width:40%;
+}
+body{
+	margin:0;
+	padding-bottom:30px;
+}
+#app-title{
+	padding-top:10px;
+}
+#application{
+	width:95%;
+	margin:auto;
+}
+.video-element{
+	height:100%;
+}
+.border{ border:1px solid red; }
