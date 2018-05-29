@@ -4,15 +4,9 @@
 	cursor:pointer;	
 	font-size:1.5em;
 	padding:10px;
-}
-
-.video{
-	margin:auto;
-	max-height:60%;
-	min-height:50%;
-	background-color:#18020C;
-	color:white;
-	margin-top:1em;
+	border:solid;
+	border:transparent;
+	padding-top:15px;
 }
 .center-button-full-width{
 	text-align:center;
@@ -20,10 +14,10 @@
 }
 .success{
 	background-color: #5cb85c;
-	border-color:#4cae4c;
+	border-color:#5cb85c;
 }
-.intro-video{
-	width:90%;
+.info{
+	
 }
 .interview-video{
 	width:40%;
@@ -32,9 +26,7 @@ body{
 	margin:0;
 	padding-bottom:30px;
 }
-#app-title{
-	padding-top:10px;
-}
+
 #application{
 	width:95%;
 	margin:auto;
@@ -43,3 +35,9 @@ body{
 	height:100%;
 }
 .border{ border:1px solid red; }
+.sub-titles{
+	font-family: 'Tajawal', sans-serif;
+}
+.titles{
+	font-family: 'Merriweather', serif;
+}

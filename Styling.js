@@ -16,6 +16,13 @@
 			console.log("Missing required parameter: " + key);
 		}
 	}
+	this.miscellaneousStuff();
+ }
+ Styling.prototype.miscellaneousStuff = function()
+ {
+ 	$("#brand").click(function() {
+ 			window.location.href = "https://www.marshall.usc.edu/programs/experiential-learning-center";
+ 		});
  }
 
  Styling.prototype.palette = 
@@ -33,8 +40,13 @@ Styling.prototype.apply = function()
 	$("body").css("background-color",this.palette.background);
 
 	//title
-	$("#app-title").html(this.palette.title);
+	$("#app-title").html("<a style='text-decoration: none; color:white' href='.'>"+
+								this.palette.title
+								+"</a>");
 
+ 	// $("#app-title").click(function() {
+ 	// 		window.location.reload();
+ 	// 	});
 	//application container
 	$("#application").css("background-color",this.palette.foreground);
 

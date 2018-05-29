@@ -10,23 +10,37 @@
 	.interviewee-disabled {
 		background-color: grey;
 	}
+	.video{
+		border:1px solid red;
+	}
+	.div-class{
+		display:inline-block; 
+		border:1px solid red;
+		text-align:center;
+	}
+	*{ /* BAD? */
+		/*text-align:center;*/
+	}
+	.container{
+		display:flex;
+		flex-direction:row;
+		margin-bottom:15px;
+	}
 </style>
 
-<h2>Interviewing <span class="name">NAME</span> (<span class="title">TITLE</span>)</h2>
-
-<div class="video">
-	<video class="video-element" controls>
-	</video>
-</div>
-
-<ul>
-	<li class="question-prototype">
-		<a class="question-prompt question-button">QUESTION HERE</a>
-	</li>
-</ul>
-
+<h2 class="sub-titles">Interviewing <span class="name">NAME</span> (<span class="title">TITLE</span>)</h2>
 <p><span class="time">X:XX</span> Remaining</p>
-
 <p class="interviewee-disabled-message">TIME'S UP!</p>
 
-<input type="button" class="back" value="Back" />
+<div class="container">
+	<video class="video-element" controls controlsList="nodownload">
+		</video>
+	<div class="div-class">
+		<ul>
+			<li class="question-prototype">
+				<a class="question-prompt question-button">QUESTION HERE</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<input type="button" class="back gen-button center-button-full-width success sub-titles" value="back" />

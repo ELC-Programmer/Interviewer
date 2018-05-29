@@ -23,7 +23,8 @@ VideoMessageView.prototype.options = {
 	videoURL: undefined,
 	canSkip: false,
 	continuePrompt: "Continue",
-	nextView: false
+	nextView: false,
+	autoplay: false
 };
 
 /**
@@ -42,6 +43,10 @@ VideoMessageView.prototype.onAddToApplication = function()
 	
 	// this.DOMObject.find(".video").text(this.options.videoURL); // TODO
 	this.DOMObject.find(".video-element").html('<source src="'+this.options.videoURL+'" type="video/mp4"></source>');
+	if(this.options.autoplay)
+	{
+		this.DOMObject.find(".video-element").attr("autoplay","autoplay");
+	}
 	
 	this.DOMObject.find(".continue")
 		.attr("value", this.options.continuePrompt)

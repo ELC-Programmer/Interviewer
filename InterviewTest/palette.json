@@ -1,6 +1,7 @@
 {
-	"title": "Interview App 1",
-	"background": "orange",
+	"title": "Omega",
+	"background": "#F4E76E",
 	"text": "0xFFFDF7",
-	"foreground":"orange"
+	"foreground":"#F4E76E",
+	"selections":"#51BBFE"
 }

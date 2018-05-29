@@ -16,8 +16,9 @@ var InterviewTestApplication = function(container, toStyle) {
 	
 	let introView = new VideoMessageView({
 		videoURL: "videos/intro.mp4",
-		continuePrompt: "Start Interviewing!",
-		nextView: selectionView
+		continuePrompt: "begin",
+		nextView: selectionView,
+		autoplay: true
 	});
 	
 	new Styling(styleSettings).apply(); //apply init styling to site
