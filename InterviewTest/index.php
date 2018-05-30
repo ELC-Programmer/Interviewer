@@ -38,14 +38,32 @@
 		height:28.7px;
 		padding:3px;
 		position:relative;
-		top:0;
+		top:5px;
 		left:0;
 		cursor:pointer;
+		background-image:url('./../assets/ELC_Logo2.png');
+		background-size:contain;
+		background-repeat:no-repeat;
+	}
+	@media screen and (max-width: 800px) {
+		#body{ background-color:black; }
+		#brand{
+			width:30px;
+			height:30px;
+			background-image:url('./../assets/shield.jpg');
+			background-repeat:no-repeat;
+			background-size:contain;
+			cursor:pointer;
+			position:relative;
+			top:0;
+			left:0;
+		}
 	}
 </style>
 <link rel="stylesheet" type="text/css" href="styleSheet.css">
 	<div class="navbar">
 		<div id="app-title" class="titles"></div>
-		<img id="brand" src='./../assets/ELC_Logo2.png'>
+		<div id="brand"></div>
+		<!-- <img id="brand" src='./../assets/ELC_Logo2.png'> -->
 	</div>
 	<div id="application"></div>
