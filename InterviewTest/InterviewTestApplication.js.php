@@ -20,7 +20,7 @@ var InterviewTestApplication = function(container, toStyle) {
 		nextView: selectionView,
 		autoplay: true,
 		transition: "cover",
-		canSkip: true
+		// canSkip: true
 	});
 	
 	style = new Styling(styleSettings);
