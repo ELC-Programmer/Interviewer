@@ -24,7 +24,9 @@ VideoMessageView.prototype.options = {
 	canSkip: false,
 	continuePrompt: "Continue",
 	nextView: false,
-	autoplay: false
+	autoplay: false,
+	transition: undefined,
+	controls: false
 };
 
 /**
@@ -40,24 +42,46 @@ VideoMessageView.prototype.HTMLSource = "<?php StackViewSource() ?>";
 VideoMessageView.prototype.onAddToApplication = function()
 {
 	let scope = this;
-	
-	// this.DOMObject.find(".video").text(this.options.videoURL); // TODO
-	this.DOMObject.find(".video-element").html('<source src="'+this.options.videoURL+'" type="video/mp4"></source>');
-	if(this.options.autoplay)
-	{
-		this.DOMObject.find(".video-element").attr("autoplay","autoplay");
-	}
-	
-	this.DOMObject.find(".continue")
+	let videoElement = $(this.DOMObject).find(".video-element");
+	let nextButton = $(this.DOMObject).find(".continue");
+
+	videoElement.html('<source src="'+this.options.videoURL+'" type="video/mp4"></source>');
+	if(this.options.controls) enableVideoControls();
+	if(this.options.autoplay) $(videoElement).prop("autoplay","autoplay");
+	if(!this.options.canSkip) $(nextButton).prop("disabled",true);
+
+	$(videoElement).on('ended',()=>{
+		this.options.canSkip = true;
+		enableVideoControls();
+		$(nextButton).prop("disabled",false);
+	});
+
+	nextButton
 		.attr("value", this.options.continuePrompt)
-		.click(function() {
-			if (scope.options.nextView)
-			{
-				scope.application.push(scope.options.nextView);
-			}
-			else
-			{
-				scope.application.pop();
+		.click(function(){
+			if(scope.options.canSkip){
+				function callback() {
+					if (scope.options.nextView)
+					{
+						scope.application.push(scope.options.nextView);
+					}
+					else
+					{
+						scope.application.pop();
+					};
+				}
+				disableVideoControls();
+				window.style.transition(this, callback, scope.options.transition);
 			}
 		});
+
+	function enableVideoControls(){
+		$(videoElement).prop("controls",true);
+		$(videoElement).attr("controlslist","nodownload");
+	}
+	function disableVideoControls(){
+		$(videoElement).prop("controls",false);
+	}
 }
+
+

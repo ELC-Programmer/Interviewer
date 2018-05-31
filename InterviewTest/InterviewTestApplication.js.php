@@ -18,10 +18,13 @@ var InterviewTestApplication = function(container, toStyle) {
 		videoURL: "videos/intro.mp4",
 		continuePrompt: "begin",
 		nextView: selectionView,
-		autoplay: true
+		autoplay: true,
+		transition: "cover"
 	});
 	
-	new Styling(styleSettings).apply(); //apply init styling to site
+	style = new Styling(styleSettings);
+	window.style = style; 
+	window.style.apply(); //apply init styling to site
 
 	this.show(introView);
 }
