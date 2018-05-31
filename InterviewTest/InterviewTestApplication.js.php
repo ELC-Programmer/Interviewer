@@ -19,7 +19,8 @@ var InterviewTestApplication = function(container, toStyle) {
 		continuePrompt: "begin",
 		nextView: selectionView,
 		autoplay: true,
-		transition: "cover"
+		transition: "cover",
+		canSkip: true
 	});
 	
 	style = new Styling(styleSettings);
