@@ -46,18 +46,23 @@ IntervieweeSelectionView.prototype.onAddToApplication = function()
 	pt.find(".button").click(function() {
 		let id = $(this).parents(".interviewee").attr("interviewee-id");
 		let interviewee = scope.options.interviewees[id];
+		if (interviewee.disabled) return;
+
+		let options = Object.assign({ interviewee: scope.options.interviewees[id] }, scope.options.interviewViewOptions);
 		
-		if (!interviewee.disabled)
-		{
-			let options = Object.assign({ interviewee: scope.options.interviewees[id] }, scope.options.interviewViewOptions);
-			
-			// Create and push an InterviewView
-			let interviewView = Object.create(scope.options.interviewViewType.prototype);
-			scope.options.interviewViewType.call(interviewView, options);
-			
-			scope.selectedIntervieweeID = id;
-			scope.application.push(interviewView);
-		}
+		// Create and push an InterviewView
+		let interviewView = Object.create(scope.options.interviewViewType.prototype);
+		scope.options.interviewViewType.call(interviewView, options);
+		
+		scope.selectedIntervieweeID = id;
+		let newStackView = scope.application.push(interviewView);
+
+		//display this stackviewcontainer so transition can be performed
+		$(this).parents(".stack-view-container").css("display","block").css("position","relative"); 
+		//perform transition
+		window.style.transition(	[$(this).parents(".stack-view-container"),newStackView], //targets
+									()=>{$(this).parents(".stack-view-container").css("display","none");},  //hide old stackview
+									"slideLeft"); //transition type
 	});
 	
 	// Make empty copies of the prototype

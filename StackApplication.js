@@ -41,8 +41,9 @@ StackApplication.prototype.show = function(view)
 /**
  * Add a new view to the top of the stack.
  * @param {StackView} view - The view to push.
+ * @param {Array} css - css properties to apply to container of new view
  */
-StackApplication.prototype.push = function(view)
+StackApplication.prototype.push = function(view, css)
 {
 	if (this.viewStack.length > 0)
 	{
@@ -53,12 +54,18 @@ StackApplication.prototype.push = function(view)
 		
 	// Add new view to DOM
 	let viewContainer = $("<div>").addClass("stack-view-container").appendTo(this.container);
+	if(css){ //allows subclasses to add css to container before container is shown; useful for transition animations
+		for(var i=0; i<css.length; i++){
+			$(viewContainer).css(css[i][0],css[i][1]);
+		}
+	}
 	viewContainer.html(view.HTMLSource);
 	
 	// Notify new view
 	view.addToApplication(this, viewContainer);
 	view.onShow();
 	this.viewStack.push(view);
+	return viewContainer;
 }
 
 /**
@@ -85,6 +92,7 @@ StackApplication.prototype.pop = function(returnValue)
 		
 		// Show new view
 		this.container.children(".stack-view-container:last").show();
+		return this.container.children(".stack-view-container:last");
 	}
 }
 

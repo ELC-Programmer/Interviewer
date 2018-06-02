@@ -48,6 +48,8 @@ InterviewView.prototype.onAddToApplication = function()
 		
 		if (!interviewee.disabled && !question.disabled)
 		{
+			$(".video-prompt").prop("hidden",true);
+			$(".interview-video").prop("hidden",false);
 			// Disable the question
 			if (!scope.options.canRepeat)
 			{
@@ -56,9 +58,7 @@ InterviewView.prototype.onAddToApplication = function()
 			}
 			
 			// Play the response video
-			scope.DOMObject.find(".video-element").html('<source src="'+interviewee.videoDirectory + question.responseVideo+'" type="video/mp4"></source>')
-			// text(interviewee.videoDirectory + question.responseVideo); // TODO, also need to take into account options.canInterrupt !!
-			// html('<source src="'+this.options.videoURL+'" type="video/mp4"></source>');
+			scope.DOMObject.find(".interview-video").html('<source src="'+interviewee.videoDirectory + question.responseVideo+'" type="video/mp4"></source>')
 			// Start the clock, if necessary
 			if (!scope.isClockRunning())
 			{

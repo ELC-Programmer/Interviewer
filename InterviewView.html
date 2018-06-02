@@ -10,21 +10,42 @@
 	.interviewee-disabled {
 		background-color: grey;
 	}
-	.video{
+	.video-container{
 		border:1px solid red;
+		display:flex;
+		align-items:center;
+		height:100%;
+		color:white;
+		width:60%;
+		position:relative;
+	}
+	.interview-video{
+
 	}
 	.div-class{
-		display:inline-block; 
 		border:1px solid red;
 		text-align:center;
-	}
-	*{ /* BAD? */
-		/*text-align:center;*/
+		width:40%;
+		height:100%;
+		background-color:#BAAB68;
 	}
 	.container{
 		display:flex;
+		align-items:center;
 		flex-direction:row;
 		margin-bottom:15px;
+		height:60vh;
+		border:1px solid blue;
+		background-color:#4C3523;
+	}
+	.video-prompt{
+		color:white;
+	}
+	.center-horz-vert{
+		position: absolute;
+  		top: 50%;
+  		left: 50%;
+  		transform: translate(-50%, -50%);
 	}
 </style>
 
@@ -33,8 +54,13 @@
 <p class="interviewee-disabled-message">TIME'S UP!</p>
 
 <div class="container">
-	<video class="video-element" controls controlsList="nodownload">
+	<div class="video-container">
+		<div class="video-prompt center-horz-vert">
+			Please select a video option on the right.
+		</div>	
+		<video class="interview-video center-horz-vert" autoplay hidden>
 		</video>
+	</div>
 	<div class="div-class">
 		<ul>
 			<li class="question-prototype">
@@ -43,4 +69,6 @@
 		</ul>
 	</div>
 </div>
+<div style="width:100%; text-align:center;">
 <input type="button" class="back gen-button center-button-full-width success sub-titles" value="back" />
+</div>
