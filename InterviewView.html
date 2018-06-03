@@ -1,73 +1,92 @@
 <style>
-	.question {
-		background-color: lightblue;
-	}
-
-	.question-disabled {
-		color: red;
-	}
-	
 	.interviewee-disabled {
-		background-color: grey;
+		background-color: transparent;
 	}
-	.video-container{
-		border:1px solid red;
-		display:flex;
-		align-items:center;
-		height:100%;
-		color:white;
-		width:60%;
-		position:relative;
-	}
-	.interview-video{
-
-	}
-	.div-class{
-		border:1px solid red;
+	.time-container{
 		text-align:center;
-		width:40%;
-		height:100%;
-		background-color:#BAAB68;
 	}
+		.interviewee-disabled-message{
+			animation: blinker 2s linear infinite;
+			width:100%;
+			padding:8px;
+			margin-bottom:5px;
+			text-align:center;
+			font-size:1.2em;
+		}
+		@keyframes blinker{
+			20%{
+				background-color:#ED1233;
+			}
+		}
 	.container{
 		display:flex;
 		align-items:center;
 		flex-direction:row;
 		margin-bottom:15px;
 		height:60vh;
-		border:1px solid blue;
 		background-color:#4C3523;
 	}
-	.video-prompt{
-		color:white;
-	}
-	.center-horz-vert{
-		position: absolute;
-  		top: 50%;
-  		left: 50%;
-  		transform: translate(-50%, -50%);
-	}
+		.video-container{
+			display:flex;
+			align-items:center;
+			height:100%;
+			color:white;
+			width:60%;
+			position:relative;
+		}
+			.video-prompt{
+				color:white;
+				text-align:center;
+			}
+				.icon{
+					margin:auto;
+					width:50%;
+				}
+			.interview-video{
+				width:100%;
+				max-height:100%;
+			}
+		.div-class{
+			text-align:center;
+			width:40%;
+			height:100%;
+			overflow:scroll;
+			background-color:#BAAB68;
+			text-align:left;
+			padding:0;
+		}
+=			.question-disabled {
+				color: red;
+			}
+			li{
+				list-style-type:none;
+				padding:8px;
+			}
+				li > a{
+					cursor:pointer;
+				}
 </style>
 
 <h2 class="sub-titles">Interviewing <span class="name">NAME</span> (<span class="title">TITLE</span>)</h2>
-<p><span class="time">X:XX</span> Remaining</p>
-<p class="interviewee-disabled-message">TIME'S UP!</p>
+<p class="time-container"><span class="time">X:XX</span> Remaining</p>
+<p class="interviewee-disabled-message sub-titles">Time's up. Please choose another interviewee.</p>
+
 
 <div class="container">
 	<div class="video-container">
 		<div class="video-prompt center-horz-vert">
-			Please select a video option on the right.
+			<img class="icon" src="../assets/video-player.png">
+			<br />
+			<p class="sub-titles">Please select a video option on the right.</p>
 		</div>	
 		<video class="interview-video center-horz-vert" autoplay hidden>
 		</video>
 	</div>
-	<div class="div-class">
-		<ul>
-			<li class="question-prototype">
-				<a class="question-prompt question-button">QUESTION HERE</a>
-			</li>
-		</ul>
-	</div>
+	<ul class="div-class">
+		<li class="question-prototype">
+			<a class="question-prompt question-button">QUESTION HERE</a>
+		</li>
+	</ul>
 </div>
 <div style="width:100%; text-align:center;">
 <input type="button" class="back gen-button center-button-full-width success sub-titles" value="back" />

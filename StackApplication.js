@@ -72,27 +72,37 @@ StackApplication.prototype.push = function(view, css)
  * Pop to the next view on the stack, optionally passing a value.
  * @param {*} returnValue - A value to pass to the view being popped to.
  */
-StackApplication.prototype.pop = function(returnValue)
+StackApplication.prototype.pop = function(returnValue, transition)
 {
-	// Notify old view
-	let oldView = this.viewStack.pop()
-	oldView.onHide();
-	oldView.removeFromApplication();
+	let that = this;
+	function callback(){
+		// Notify old view
+		let oldView = that.viewStack.pop()
+		oldView.onHide();
+		oldView.removeFromApplication();
 
-	// Hide old view
-	this.container.children(".stack-view-container").remove(":last");
-	this.container.children(".stack-view-container").hide();
-	
-	if (this.viewStack.length > 0)
-	{
-		// Notify new view
-		let view = this.viewStack[this.viewStack.length - 1];
-		view.onPopTo(returnValue);
-		view.onShow();
+		// Hide old view
+		that.container.children(".stack-view-container").remove(":last");
+		that.container.children(".stack-view-container").hide();
 		
-		// Show new view
-		this.container.children(".stack-view-container:last").show();
-		return this.container.children(".stack-view-container:last");
+		if (that.viewStack.length > 0)
+		{
+			// Notify new view
+			let view = that.viewStack[that.viewStack.length - 1];
+			view.onPopTo(returnValue);
+			view.onShow();
+			
+			// Show new view
+			that.container.children(".stack-view-container:last").show();
+			return that.container.children(".stack-view-container:last");
+		}
+	}
+	if(transition){ //if a transition was requested
+		this.container.children(".stack-view-container:last").css("position","relative");
+		window.style.transition([this.container.children(".stack-view-container:last"),this.container.children(".stack-view-container:nth-last-child(2)")],callback,"slideRight");
+	}
+	else{
+		callback();
 	}
 }
 

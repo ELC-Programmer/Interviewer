@@ -76,6 +76,8 @@ InterviewView.prototype.onAddToApplication = function()
 					.removeClass("question-prototype")
 					.addClass("question")
 					.attr("question-id", i);
+		if(!(i%2)) //add a border between the questions
+			$(obj).css("border-bottom","1px solid black"); 
 		obj.appendTo(pt.parent());
 	}
 	
@@ -84,7 +86,8 @@ InterviewView.prototype.onAddToApplication = function()
 	
 	// Back Button
 	this.DOMObject.find(".back").click(function() {
-		scope.application.pop(interviewee);
+
+		scope.application.pop(interviewee, "slideRight");
 	});
 }
 

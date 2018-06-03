@@ -87,17 +87,17 @@ Styling.prototype.transition = function(target, callback, transition){
 			});
 		});
 	}
-	else if(transition == "slideLeft"){
+	else if(transition == "slideLeft" || transition == "slideRight"){
 		// animate both divs at the same time by setting queue value to false 
-		slide(-.95, 750);
-		function slide(direction, duration){
+		direction = .95;
+		if(transition == "slideLeft") direction *= -1;
+		duration = 750;
 		$(target[0]).animate({left:direction*$(window).width()}, {duration:duration, queue:false, complete: function(){
-					$(target[0]).css("left", "0");
-					if(callback) callback();
-					$(target[1]).hide().fadeIn();
-				}
-			});
-		}
+				$(target[0]).css("left", "0");
+				if(callback) callback();
+				$(target[1]).hide().fadeIn();
+			}
+		});
 	}
 	
 }
