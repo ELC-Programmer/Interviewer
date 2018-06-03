@@ -31,7 +31,7 @@
 		text-align:center;
 	}
 	#application{
-		overflow:scroll;
+		overflow-x:hidden;
 	}
 	#brand{
 		width:358px;

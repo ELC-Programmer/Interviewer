@@ -70,8 +70,8 @@ Styling.prototype.apply = function()
  **/
 Styling.prototype.transition = function(target, callback, transition){
 	if(transition == "cover"){
-		let offsetTop = $(target).offset().top;
-		let offsetLeft = $(target).offset().left;
+		let offsetTop = localToGlobalPos(target).top;
+		let offsetLeft = localToGlobalPos(target).left;
 		let targetCopy = $(target).clone(); //make copy of clicked button 
 		targetCopy.css("margin",0).css("position","fixed").css("top",offsetTop).css("left",offsetLeft);
 		targetCopy.html();
@@ -98,6 +98,33 @@ Styling.prototype.transition = function(target, callback, transition){
 				$(target[1]).hide().fadeIn();
 			}
 		});
+	}
+    function localToGlobalPos( _el ) {
+       var target = _el,
+       target_width = target.offsetWidth,
+       target_height = target.offsetHeight,
+       target_left = target.offsetLeft,
+       target_top = target.offsetTop,
+       gleft = 0,
+       gtop = 0,
+       rect = {};
+
+       var moonwalk = function( _parent ) {
+        if (!!_parent) {
+            gleft += _parent.offsetLeft;
+            gtop += _parent.offsetTop;
+            moonwalk( _parent.offsetParent );
+        } else {
+            return rect = {
+            top: target.offsetTop + gtop,
+            left: target.offsetLeft + gleft,
+            bottom: (target.offsetTop + gtop) + target_height,
+            right: (target.offsetLeft + gleft) + target_width
+            };
+        }
+    };
+        moonwalk( target.offsetParent );
+        return rect;
 	}
 }
 
