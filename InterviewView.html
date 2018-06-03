@@ -34,7 +34,7 @@
 			width:60%;
 			position:relative;
 		}
-			.video-prompt{
+			.video-prompt, .video-error{
 				color:white;
 				text-align:center;
 			}
@@ -55,7 +55,7 @@
 			text-align:left;
 			padding:0;
 		}
-=			.question-disabled {
+			.question-disabled {
 				color: red;
 			}
 			li{
@@ -78,6 +78,11 @@
 			<img class="icon" src="../assets/video-player.png">
 			<br />
 			<p class="sub-titles">Please select a video option on the right.</p>
+		</div>	
+		<div class="video-error center-horz-vert" hidden>
+			<img class="icon" src="../assets/broken-video.png">
+			<br />
+			<p class="sub-titles">Video link is broken.</p>
 		</div>	
 		<video class="interview-video center-horz-vert" autoplay hidden>
 		</video>

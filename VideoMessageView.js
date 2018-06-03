@@ -44,9 +44,16 @@ VideoMessageView.prototype.onAddToApplication = function()
 	let scope = this;
 	let videoElement = $(this.DOMObject).find(".video-element");
 	let nextButton = $(this.DOMObject).find(".continue");
-	let video = '<source src="'+this.options.videoURL+'" type="video/mp4"></source>';
+	window.style.checkIfFileExists(this.options.videoURL, 
+		()=>{
+			$(".video-prompt").show();
+			videoElement.css("background-color","#4C3523");
+	});
 
+	let video = '<source src="'+this.options.videoURL+'" type="video/mp4"></source>';
+	$(".video-prompt").hide();
 	videoElement.html(video);
+	videoElement.css("background-color","#230C0F");
 	if(this.options.controls) enableVideoControls();
 	if(this.options.autoplay) $(videoElement).prop("autoplay","autoplay");
 	if(!this.options.canSkip) $(nextButton).prop("disabled",true);
@@ -72,6 +79,7 @@ VideoMessageView.prototype.onAddToApplication = function()
 					};
 				}
 				disableVideoControls();
+				$(".video-prompt").hide()
 				pauseVideo();
 				window.style.transition(this, callback, scope.options.transition);
 			}

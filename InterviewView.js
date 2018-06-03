@@ -56,7 +56,10 @@ InterviewView.prototype.onAddToApplication = function()
 				question.disabled = true;
 				$(this).toggleClass("question-disabled", question.disabled == true);
 			}
-			
+			failureCallback = function(){
+				$(".video-error").show();
+			}
+			window.style.checkIfFileExists(interviewee.videoDirectory + question.responseVideo, failureCallback);
 			// Play the response video
 			scope.DOMObject.find(".interview-video").html('<source src="'+interviewee.videoDirectory + question.responseVideo+'" type="video/mp4"></source>')
 			// Start the clock, if necessary

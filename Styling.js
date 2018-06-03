@@ -99,5 +99,19 @@ Styling.prototype.transition = function(target, callback, transition){
 			}
 		});
 	}
-	
+}
+
+Styling.prototype.checkIfFileExists = function(url, errorCallback, successCallback){
+	$.ajax({
+	    type: 'HEAD',
+	    url: url,
+	    success: function(){
+	    	if(successCallback) 
+	    		successCallback();
+	    },
+	    error: function() {
+	    	if(errorCallback)
+	    		errorCallback();
+	    }
+	});
 }
