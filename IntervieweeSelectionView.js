@@ -55,14 +55,7 @@ IntervieweeSelectionView.prototype.onAddToApplication = function()
 		scope.options.interviewViewType.call(interviewView, options);
 		
 		scope.selectedIntervieweeID = id;
-		let newStackView = scope.application.push(interviewView);
-
-		//display this stackviewcontainer so transition can be performed
-		$(this).parents(".stack-view-container").css("display","block").css("position","relative"); 
-		//perform transition
-		window.style.transition(	[$(this).parents(".stack-view-container"),newStackView], //targets
-									()=>{$(this).parents(".stack-view-container").css("display","none");},  //hide old stackview
-									"slideLeft"); //transition type
+		scope.application.push(interviewView);
 	});
 	
 	// Make empty copies of the prototype

@@ -44,6 +44,7 @@ VideoMessageView.prototype.onAddToApplication = function()
 	let scope = this;
 	let videoElement = $(this.DOMObject).find(".video-element");
 	let nextButton = $(this.DOMObject).find(".continue");
+	//check if intro video file exists, if not show error message
 	window.style.checkIfFileExists(this.options.videoURL, 
 		()=>{
 			$(".video-prompt").show();

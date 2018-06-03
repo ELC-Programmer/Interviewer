@@ -101,6 +101,12 @@ Styling.prototype.transition = function(target, callback, transition){
 	}
 }
 
+/**
+ * Allows user to check if a file exists. If it exists, successCallback is executed, else errorCallback is executed. 
+ * @param {string} the url of the file
+ * @param {function} callback to execute if file does not exist
+ * @param {function} callback to execute if file does exist
+ **/
 Styling.prototype.checkIfFileExists = function(url, errorCallback, successCallback){
 	$.ajax({
 	    type: 'HEAD',

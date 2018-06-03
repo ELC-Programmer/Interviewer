@@ -56,7 +56,7 @@
 			padding:0;
 		}
 			.question-disabled {
-				color: red;
+				text-decoration:line-through;
 			}
 			li{
 				list-style-type:none;
@@ -80,11 +80,12 @@
 			<p class="sub-titles">Please select a video option on the right.</p>
 		</div>	
 		<div class="video-error center-horz-vert" hidden>
-			<img class="icon" src="../assets/broken-video.png">
+			<img class="icon" style="width:90%" src="../assets/broken-video.png">
 			<br />
 			<p class="sub-titles">Video link is broken.</p>
 		</div>	
 		<video class="interview-video center-horz-vert" autoplay hidden>
+			<!-- <source class="interview-video-src" type="video/mp4"> -->
 		</video>
 	</div>
 	<ul class="div-class">
@@ -94,5 +95,5 @@
 	</ul>
 </div>
 <div style="width:100%; text-align:center;">
-<input type="button" class="back gen-button center-button-full-width success sub-titles" value="back" />
+	<input type="button" class="back gen-button center-button-full-width success sub-titles" value="back" />
 </div>

@@ -38,6 +38,9 @@ InterviewView.prototype.onAddToApplication = function()
 {
 	let scope = this;
 	let interviewee = this.options.interviewee;
+	if(!this.application.interviewees[this.options.interviewee.name])
+		this.application.interviewees[this.options.interviewee.name] = {};
+	console.log(this.application.interviewees[this.options.interviewee.name])
 
 	let pt = this.DOMObject.find(".question-prototype");
 
@@ -45,23 +48,41 @@ InterviewView.prototype.onAddToApplication = function()
 	pt.find(".question-button").click(function() {
 		let id = $(this).parents(".question").attr("question-id");
 		let question = interviewee.questions[id];
-		
+
 		if (!interviewee.disabled && !question.disabled)
 		{
+			//perform setup
 			$(".video-prompt").prop("hidden",true);
+			$(".video-error").hide();
 			$(".interview-video").prop("hidden",false);
-			// Disable the question
-			if (!scope.options.canRepeat)
-			{
-				question.disabled = true;
-				$(this).toggleClass("question-disabled", question.disabled == true);
+			
+			if(scope.isClockRunning()){	//if we have just switched to a new question
+				//if the previous video has not finished playing, save the point where it was paused
+				scope.application.interviewees[scope.options.interviewee.name][scope.currQuestion.prompt] = scope.DOMObject.find(".interview-video")[0].currentTime; 
 			}
-			failureCallback = function(){
+
+			//check if selected video exists, if not, show error message
+			window.style.checkIfFileExists(interviewee.videoDirectory + question.responseVideo, ()=>{
 				$(".video-error").show();
-			}
-			window.style.checkIfFileExists(interviewee.videoDirectory + question.responseVideo, failureCallback);
+				scope.stopClock();
+			});
+			
 			// Play the response video
-			scope.DOMObject.find(".interview-video").html('<source src="'+interviewee.videoDirectory + question.responseVideo+'" type="video/mp4"></source>')
+			scope.DOMObject.find(".interview-video").attr('src',interviewee.videoDirectory + question.responseVideo);
+			console.log(scope.application.interviewees[scope.options.interviewee.name][question.prompt]);
+			scope.DOMObject.find(".interview-video")[0].currentTime = scope.application.interviewees[scope.options.interviewee.name][question.prompt];
+			scope.currQuestion = question;
+
+			// Disable the question only when video is finished
+			scope.DOMObject.find(".interview-video").on('ended',()=>{
+				if (!scope.options.canRepeat)
+				{
+					question.disabled = true;
+					$(this).toggleClass("question-disabled", question.disabled == true);
+					scope.stopClock();
+				}
+			});
+
 			// Start the clock, if necessary
 			if (!scope.isClockRunning())
 			{
@@ -69,12 +90,12 @@ InterviewView.prototype.onAddToApplication = function()
 			}
 		}
 	});
-	
+
 	// Make empty copies of the prototype
 	for (let i in interviewee.questions)
 	{
 		let question = interviewee.questions[i];
-		
+				
 		let obj = pt.clone(true)
 					.removeClass("question-prototype")
 					.addClass("question")
@@ -82,6 +103,8 @@ InterviewView.prototype.onAddToApplication = function()
 		if(!(i%2)) //add a border between the questions
 			$(obj).css("border-bottom","1px solid black"); 
 		obj.appendTo(pt.parent());
+		if(!this.application.interviewees[this.options.interviewee.name][question.prompt])	//set pausedAt value to 0 (initial) if not already set
+			this.application.interviewees[this.options.interviewee.name][question.prompt] = 0; 
 	}
 	
 	// Hide the prototype
@@ -89,7 +112,9 @@ InterviewView.prototype.onAddToApplication = function()
 	
 	// Back Button
 	this.DOMObject.find(".back").click(function() {
-
+		//if this user is not disabled yet, save current video pause point 
+		if(scope.options.interviewee.timeRemaining > 0 && scope.currQuestion)
+			scope.application.interviewees[scope.options.interviewee.name][scope.currQuestion.prompt] = scope.DOMObject.find(".interview-video")[0].currentTime;
 		scope.application.pop(interviewee, "slideRight");
 	});
 }
@@ -182,6 +207,8 @@ InterviewView.prototype.tickClock = function(scope)
 	{ // stop the clock
 		scope.stopClock();
 		interviewee.disabled = true;
+		$(".question").addClass("question-disabled");
+		scope.DOMObject.find(".interview-video")[0].pause();
 	}
 	
 	scope.updateTimeRemaining();

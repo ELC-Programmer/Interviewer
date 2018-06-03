@@ -7,6 +7,7 @@ var StackApplication = function(container)
 {
 	this.container = $(container);
 	this.viewStack = [];
+	this.interviewees = {};
 }
 
 /**
@@ -65,7 +66,34 @@ StackApplication.prototype.push = function(view, css)
 	view.addToApplication(this, viewContainer);
 	view.onShow();
 	this.viewStack.push(view);
-	return viewContainer;
+
+	// if (this.viewStack.length > 0)
+	// {
+	// 	// Hide old view
+	// 	this.viewStack[this.viewStack.length - 1].onHide();
+	// 	this.container.children(".stack-view-container").hide();
+	// }
+	// // Add new view to DOM
+	// let viewContainer = $("<div>").addClass("stack-view-container").appendTo(this.container);
+	// if(options_ && options_['css']){ //allows subclasses to add css to container before container is shown; useful for transition animations
+	// 	for(var i=0; i<css.length; i++){
+	// 		$(viewContainer).css(css[i][0],css[i][1]);
+	// 	}
+	// }
+	// viewContainer.html(view.HTMLSource);
+	
+	// let that = this;
+	// callback = function(){
+	// 	view.addToApplication(this, viewContainer);
+	// 	view.onShow();
+	// 	that.viewStack.push(view);
+	// }
+	// if(options_ && options_['transition'])
+	// 	window.style.transition([this.container.children(".stack-view-container:last"),viewContainer], 
+	// 		callback, 
+	// 		options_['transition']);
+	// else
+	// 	callback();
 }
 
 /**
@@ -104,5 +132,6 @@ StackApplication.prototype.pop = function(returnValue, transition)
 	else{
 		callback();
 	}
+	console.log(this.interviewees)
 }
 
