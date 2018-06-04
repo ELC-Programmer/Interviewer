@@ -44,56 +44,63 @@ StackApplication.prototype.show = function(view)
  * @param {StackView} view - The view to push.
  * @param {Array} css - css properties to apply to container of new view
  */
-StackApplication.prototype.push = function(view, css)
+StackApplication.prototype.push = function(view, options)
 {
-	if (this.viewStack.length > 0)
-	{
-		// Hide old view
-		this.viewStack[this.viewStack.length - 1].onHide();
-		this.container.children(".stack-view-container").hide();
-	}
-		
-	// Add new view to DOM
-	let viewContainer = $("<div>").addClass("stack-view-container").appendTo(this.container);
-	if(css){ //allows subclasses to add css to container before container is shown; useful for transition animations
-		for(var i=0; i<css.length; i++){
-			$(viewContainer).css(css[i][0],css[i][1]);
-		}
-	}
-	viewContainer.html(view.HTMLSource);
-	
-	// Notify new view
-	view.addToApplication(this, viewContainer);
-	view.onShow();
-	this.viewStack.push(view);
-
 	// if (this.viewStack.length > 0)
 	// {
 	// 	// Hide old view
 	// 	this.viewStack[this.viewStack.length - 1].onHide();
 	// 	this.container.children(".stack-view-container").hide();
 	// }
-	// // Add new view to DOM
+		
+	// Add new view to DOM
 	// let viewContainer = $("<div>").addClass("stack-view-container").appendTo(this.container);
-	// if(options_ && options_['css']){ //allows subclasses to add css to container before container is shown; useful for transition animations
+	// if(css){ //allows subclasses to add css to container before container is shown; useful for transition animations
 	// 	for(var i=0; i<css.length; i++){
 	// 		$(viewContainer).css(css[i][0],css[i][1]);
 	// 	}
 	// }
 	// viewContainer.html(view.HTMLSource);
 	
-	// let that = this;
-	// callback = function(){
-	// 	view.addToApplication(this, viewContainer);
-	// 	view.onShow();
-	// 	that.viewStack.push(view);
-	// }
-	// if(options_ && options_['transition'])
-	// 	window.style.transition([this.container.children(".stack-view-container:last"),viewContainer], 
-	// 		callback, 
-	// 		options_['transition']);
-	// else
-	// 	callback();
+	// Notify new view
+	// view.addToApplication(this, viewContainer);
+	// view.onShow();
+	// this.viewStack.push(view);
+
+	if (this.viewStack.length > 0)
+	{
+		// Hide old view
+		this.viewStack[this.viewStack.length - 1].onHide();
+		// this.container.children(".stack-view-container").hide();
+	}
+	// // Add new view to DOM
+	let viewContainer = $("<div>").addClass("stack-view-container").appendTo(this.container);
+	if(options && options['css']){ //allows subclasses to add css to container before container is shown; useful for transition animations
+		for(var i=0; i<css.length; i++){
+			$(viewContainer).css(css[i][0],css[i][1]);
+		}
+	}
+	viewContainer.html(view.HTMLSource);
+	
+	let that = this;
+	callback = function(){
+		that.container.children(".stack-view-container:nth-last-child(2)").hide();
+		that.viewStack.push(view);
+	}
+	if(options && options['transition']){
+		viewContainer.hide();
+		view.addToApplication(that, viewContainer);
+		view.onShow();
+		this.container.children(".stack-view-container:nth-last-child(2)").css("position","relative");
+		window.style.transition([this.container.children(".stack-view-container:nth-last-child(2)"),this.container.children(".stack-view-container:last")], 
+			callback, 
+			options['transition']);
+	}
+	else{
+		view.addToApplication(that, viewContainer);
+		view.onShow();
+		callback();
+	}
 }
 
 /**

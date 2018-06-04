@@ -55,7 +55,7 @@ IntervieweeSelectionView.prototype.onAddToApplication = function()
 		scope.options.interviewViewType.call(interviewView, options);
 		
 		scope.selectedIntervieweeID = id;
-		scope.application.push(interviewView);
+		scope.application.push(interviewView, {"transition":"slideLeft"});
 	});
 	
 	// Make empty copies of the prototype
