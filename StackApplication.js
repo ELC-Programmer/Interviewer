@@ -139,6 +139,5 @@ StackApplication.prototype.pop = function(returnValue, transition)
 	else{
 		callback();
 	}
-	console.log(this.interviewees)
 }
 

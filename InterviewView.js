@@ -40,7 +40,6 @@ InterviewView.prototype.onAddToApplication = function()
 	let interviewee = this.options.interviewee;
 	if(!this.application.interviewees[this.options.interviewee.name])
 		this.application.interviewees[this.options.interviewee.name] = {};
-	console.log(this.application.interviewees[this.options.interviewee.name])
 
 	let pt = this.DOMObject.find(".question-prototype");
 
@@ -57,6 +56,8 @@ InterviewView.prototype.onAddToApplication = function()
 			$(".interview-video").prop("hidden",false);
 			
 			if(scope.isClockRunning()){	//if we have just switched to a new question
+				//if you cannot interrupt this speaker
+				if(!scope.options.canInterrupt) return;
 				//if the previous video has not finished playing, save the point where it was paused
 				scope.application.interviewees[scope.options.interviewee.name][scope.currQuestion.prompt] = scope.DOMObject.find(".interview-video")[0].currentTime; 
 			}
@@ -69,7 +70,6 @@ InterviewView.prototype.onAddToApplication = function()
 			
 			// Play the response video
 			scope.DOMObject.find(".interview-video").attr('src',interviewee.videoDirectory + question.responseVideo);
-			console.log(scope.application.interviewees[scope.options.interviewee.name][question.prompt]);
 			scope.DOMObject.find(".interview-video")[0].currentTime = scope.application.interviewees[scope.options.interviewee.name][question.prompt];
 			scope.currQuestion = question;
 
