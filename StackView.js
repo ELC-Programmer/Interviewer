@@ -30,18 +30,28 @@ StackView.prototype.options = {};
  */
 StackView.prototype.HTMLSource = "OVERRIDE THIS";
  
+/**
+ * @property {string} styles - A CSS string containing styles for this view.
+ */
+StackView.prototype.styles = "";
+ 
 <?php
+	function FileContents($filename)
+	{		
+		$contents = file_get_contents($filename, true);		
+		$contents = str_replace(array("\r", "\n"), " ", $contents);
+		$contents = addslashes($contents);
+		
+		echo $contents;
+	}
+
 	function StackViewSource()
 	{
 		$bt = debug_backtrace();
 		$filename = $bt[0]["file"];
 		$filename = preg_replace("/\..*/", ".html", $filename);
 		
-		$contents = file_get_contents($filename, true);
-		$contents = str_replace(array("\r", "\n"), "", $contents);
-		$contents = addslashes($contents);
-		
-		echo $contents;
+		FileContents($filename);
 	}
 ?>
  
@@ -64,6 +74,8 @@ StackView.prototype.addToApplication = function(application, DOMObject)
 {
 	this.application = application;
 	this.DOMObject = DOMObject;
+	
+	this.DOMObject.append("<style>" + this.styles + "</style>");
 	
 	this.onAddToApplication();
 }

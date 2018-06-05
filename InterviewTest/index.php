@@ -3,7 +3,7 @@
 <script>
 	<?php
 		require_once(__DIR__ . '/../include.js');
-		require_once(__DIR__ . '/InterviewTestApplication.js.php');
+		require_once(__DIR__ . '/InterviewTestApplication.js');
 	?>
 	
 	$(function() {		
@@ -13,21 +13,29 @@
 	});
 </script>
 
+<div class="navbar">
+	<div id="app-title" class="titles">Omega</div>
+	<div id="brand"></div>
+	<!-- <img id="brand" src='./../assets/ELC_Logo2.png'> -->
+</div>
+<div id="application"></div>
+
 <style>
 	.navbar{
-		background-color:#545E75;
+		background-color:black;
 		color:white;
 		width:100%;
 		position:relative;
 		top:0;
 		left:0;
+		padding: 5px
 	}
 	#app-title{
 		font-size:1.5em;
 		position:absolute;
 		left:0;
 		right:0;
-		top:0;
+		top:7px;
 		text-align:center;
 	}
 	#application{
@@ -61,9 +69,3 @@
 	}
 </style>
 <link rel="stylesheet" type="text/css" href="styleSheet.css">
-	<div class="navbar">
-		<div id="app-title" class="titles"></div>
-		<div id="brand"></div>
-		<!-- <img id="brand" src='./../assets/ELC_Logo2.png'> -->
-	</div>
-	<div id="application"></div>

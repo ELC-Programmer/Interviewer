@@ -33,6 +33,12 @@ IntervieweeSelectionView.prototype.options = {
 IntervieweeSelectionView.prototype.HTMLSource = "<?php StackViewSource() ?>";
 
 /**
+ * @property {string} styles - A CSS string containing styles for this view.
+ * @override
+ */
+IntervieweeSelectionView.prototype.styles = "<?php FileContents(__DIR__ . '/styles.css') ?>";
+
+/**
  * This function is called when the view is first shown.
  * @override
  */

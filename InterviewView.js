@@ -31,6 +31,12 @@ InterviewView.prototype.options = {
 InterviewView.prototype.HTMLSource = "<?php StackViewSource() ?>";
 
 /**
+ * @property {string} styles - A CSS string containing styles for this view.
+ * @override
+ */
+InterviewView.prototype.styles = "<?php FileContents(__DIR__ . '/styles.css') ?>";
+
+/**
  * This function is called when the view is first shown.
  * @override
  */
@@ -160,10 +166,10 @@ InterviewView.prototype.onHide = function()
 InterviewView.prototype.updateTimeRemaining = function()
 {
 	let interviewee = this.options.interviewee;
-	
+		
 	this.DOMObject.find(".time").text(formatTime(interviewee.timeRemaining));
 	
-	this.DOMObject.toggleClass("interviewee-disabled", interviewee.disabled == true);
+	this.DOMObject.toggleClass("interview-view-disabled", interviewee.disabled == true);
 	this.DOMObject.find(".interviewee-disabled-message").toggle(interviewee.disabled == true);
 }
 
@@ -208,7 +214,6 @@ InterviewView.prototype.tickClock = function(scope)
 		scope.stopClock();
 		interviewee.disabled = true;
 		$(".question").addClass("question-disabled");
-		scope.DOMObject.find(".interview-video")[0].pause();
 	}
 	
 	scope.updateTimeRemaining();

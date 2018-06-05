@@ -6,7 +6,9 @@ require_once(__DIR__ . "/helper.js");
 
 require_once(__DIR__ . "/StackApplication.js");
 require_once(__DIR__ . "/StackView.js");
+
 require_once(__DIR__ . "/VideoMessageView.js");
+require_once(__DIR__ . "/TextMessageView.js");
 
 require_once(__DIR__ . "/Interviewee.js");
 require_once(__DIR__ . "/IntervieweeSelectionView.js");

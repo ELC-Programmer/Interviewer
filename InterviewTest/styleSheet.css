@@ -1,27 +1,3 @@
-.gen-button{
-	height:50px;
-	border-radius:5px;
-	cursor:pointer;	
-	font-size:1.5em;
-	padding:10px;
-	border:solid;
-	border:transparent;
-	padding-top:15px;
-}
-.center-button-full-width{
-	text-align:center;
-	margin:1.5em;
-}
-.success{
-	background-color: #5cb85c;
-	border-color:#5cb85c;
-}
-.info{
-	
-}
-.interview-video{
-	width:40%;
-}
 body{
 	margin:0;
 	padding-bottom:30px;
@@ -31,20 +7,51 @@ body{
 	width:95%;
 	margin:auto;
 }
-.video-element{
-	height:100%;
-}
-.border{ border:1px solid red; }
-.sub-titles{
-	font-family: 'Tajawal', sans-serif;
-}
+
 .titles{
 	font-family: 'Merriweather', serif;
 }
-.center-horz-vert{
-	position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
+
+
+
+body {
+	background-color: #eee;
 }
-	
+
+.text-message-content {
+	background-color: lavender;
+}
+
+.video-element {
+	background-color: brown;
+}
+
+.interviewee {
+	background-color: #D1E3D1;
+	background-color: lavender;
+}
+
+.interviewee-disabled {
+	background-color: lightgray;
+	filter: grayscale(100%);
+}
+
+.interviewee-disabled > * {
+	cursor: default;
+}
+
+.video-container {
+	background-color: brown;
+}
+
+.question-list {
+	background-color: #ddd;
+}
+
+.question-disabled {
+	color: #777;
+}
+
+.question-disabled > a {
+	cursor: default;
+}
