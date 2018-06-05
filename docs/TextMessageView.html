@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: IntervieweeSelectionView</title>
+    <title>JSDoc: Class: TextMessageView</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: IntervieweeSelectionView</h1>
+    <h1 class="page-title">Class: TextMessageView</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>IntervieweeSelectionView<span class="signature">(options)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>TextMessageView<span class="signature">(options)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,7 +41,7 @@
     
 
     
-    <h4 class="name" id="IntervieweeSelectionView"><span class="type-signature"></span>new IntervieweeSelectionView<span class="signature">(options)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="TextMessageView"><span class="type-signature"></span>new TextMessageView<span class="signature">(options)</span><span class="type-signature"></span></h4>
     
 
     
@@ -49,7 +49,7 @@
 
 
 <div class="description">
-    A view that presents a list of interviewees for the user to choose from.
+    A view that presents a text message, then prompts the user to continue.
 </div>
 
 
@@ -91,7 +91,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="IntervieweeSelectionView.html#~Options">IntervieweeSelectionView~Options</a></span>
+<span class="param-type"><a href="TextMessageView.html#~Options">TextMessageView~Options</a></span>
 
 
             
@@ -142,7 +142,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="IntervieweeSelectionView.js.html">IntervieweeSelectionView.js</a>, <a href="IntervieweeSelectionView.js.html#line7">line 7</a>
+        <a href="TextMessageView.js.html">TextMessageView.js</a>, <a href="TextMessageView.js.html#line7">line 7</a>
     </li></ul></dd>
     
 
@@ -592,7 +592,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="IntervieweeSelectionView.html#~Options">IntervieweeSelectionView~Options</a></span>
+<span class="param-type"><a href="TextMessageView.html#~Options">TextMessageView~Options</a></span>
 
 
             
@@ -646,132 +646,12 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="IntervieweeSelectionView.js.html">IntervieweeSelectionView.js</a>, <a href="IntervieweeSelectionView.js.html#line22">line 22</a>
+        <a href="TextMessageView.js.html">TextMessageView.js</a>, <a href="TextMessageView.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
     
 
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="selectedIntervieweeID"><span class="type-signature"></span>selectedIntervieweeID<span class="type-signature"></span></h4>
-
-
-
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>selectedIntervieweeID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-|
-
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The ID of the interviewee that was selected, or false if no interviewee is currently selected.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="IntervieweeSelectionView.js.html">IntervieweeSelectionView.js</a>, <a href="IntervieweeSelectionView.js.html#line120">line 120</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li>onPopTo</li>
-        </ul>
-    </dd>
     
 
     
@@ -1254,7 +1134,7 @@
     
 
     
-    <h4 class="name" id="onPopTo"><span class="type-signature"></span>onPopTo<span class="signature">(interviewee)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="onPopTo"><span class="type-signature">(abstract) </span>onPopTo<span class="signature">(returnValue)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1262,7 +1142,7 @@
 
 
 <div class="description">
-    This function is called (before onShow) when this view is popped back to from an InterviewView.
+    This function is called (before onShow) when this view is popped back to.
 </div>
 
 
@@ -1298,13 +1178,13 @@
 
         <tr>
             
-                <td class="name"><code>interviewee</code></td>
+                <td class="name"><code>returnValue</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#Interviewee">Interviewee</a></span>
+<span class="param-type">*</span>
 
 
             
@@ -1314,7 +1194,7 @@
 
             
 
-            <td class="description last">The updated Interviewee passed back from the InterviewView.</td>
+            <td class="description last">A value of any type that was passed to the pop function of the StackApplication.</td>
         </tr>
 
     
@@ -1333,10 +1213,8 @@
     
 
     
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
         <a href="StackView.html#onPopTo">StackView#onPopTo</a>
     </li></ul></dd>
     
@@ -1358,9 +1236,11 @@
     
 
     
+
+    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="IntervieweeSelectionView.js.html">IntervieweeSelectionView.js</a>, <a href="IntervieweeSelectionView.js.html#line126">line 126</a>
+        <a href="StackView.js.html">StackView.js</a>, <a href="StackView.js.html#line95">line 95</a>
     </li></ul></dd>
     
 
@@ -1485,7 +1365,7 @@
     
 
     
-    <h4 class="name" id="onShow"><span class="type-signature"></span>onShow<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="onShow"><span class="type-signature">(abstract) </span>onShow<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -1515,12 +1395,12 @@
     
 
     
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
         <a href="StackView.html#onShow">StackView#onShow</a>
     </li></ul></dd>
+    
+
     
 
     
@@ -1720,13 +1600,13 @@
 
         <tr>
             
-                <td class="name"><code>options.interviewees</code></td>
+                <td class="name"><code>options.content</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;<a href="global.html#Interviewee">Interviewee</a>></span>
+<span class="param-type">string</span>
 
 
             
@@ -1746,20 +1626,20 @@
                 </td>
             
 
-            <td class="description last">The interviewees. All the most important data is here.</td>
+            <td class="description last">The HTML of the text to present to the user.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>options.interviewTimeLimit</code></td>
+                <td class="name"><code>options.title</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
             
@@ -1778,25 +1658,25 @@
             
                 <td class="default">
                 
-                    300
+                    "Welcome"
                 
                 </td>
             
 
-            <td class="description last">The time limit for an interview, in seconds.</td>
+            <td class="description last">The title for the video message.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>options.interviewViewType</code></td>
+                <td class="name"><code>options.continuePrompt</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type">string</span>
 
 
             
@@ -1815,25 +1695,25 @@
             
                 <td class="default">
                 
-                    InterviewView
+                    "Continue"
                 
                 </td>
             
 
-            <td class="description last">The type of InterviewView to use. Must inherit from InterviewView.</td>
+            <td class="description last">The prompt to display to the user when the video ends.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>options.interviewViewOptions</code></td>
+                <td class="name"><code>options.nextView</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object.&lt;string, *></span>
+<span class="param-type"><a href="StackView.html">StackView</a></span>
 
 
             
@@ -1852,12 +1732,12 @@
             
                 <td class="default">
                 
-                    {}
+                    false
                 
                 </td>
             
 
-            <td class="description last">The options with which to initialize InterviewViews. 'interviewee' will be set automatically.</td>
+            <td class="description last">The view to push when the user chooses to continue. If false, the view pops on continue.</td>
         </tr>
 
     
@@ -1896,7 +1776,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="IntervieweeSelectionView.js.html">IntervieweeSelectionView.js</a>, <a href="IntervieweeSelectionView.js.html#line12">line 12</a>
+        <a href="TextMessageView.js.html">TextMessageView.js</a>, <a href="TextMessageView.js.html#line12">line 12</a>
     </li></ul></dd>
     
 

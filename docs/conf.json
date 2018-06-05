@@ -4,7 +4,7 @@
     "source": {
         "includePattern": ".+\\.js(doc|x)?$",
 		"include": [".", "README.md"],
-		"exclude": ["lib", "docs"]
+		"exclude": ["lib", "docs", "InterviewTest"]
     },
     "sourceType": "module",
     "tags": {

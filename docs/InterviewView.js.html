@@ -59,6 +59,12 @@ InterviewView.prototype.options = {
 InterviewView.prototype.HTMLSource = "&lt;?php StackViewSource() ?>";
 
 /**
+ * @property {string} styles - A CSS string containing styles for this view.
+ * @override
+ */
+InterviewView.prototype.styles = "&lt;?php FileContents(__DIR__ . '/styles.css') ?>";
+
+/**
  * This function is called when the view is first shown.
  * @override
  */
@@ -66,6 +72,8 @@ InterviewView.prototype.onAddToApplication = function()
 {
 	let scope = this;
 	let interviewee = this.options.interviewee;
+	if(!this.application.interviewees[this.options.interviewee.name])
+		this.application.interviewees[this.options.interviewee.name] = {};
 
 	let pt = this.DOMObject.find(".question-prototype");
 
@@ -73,19 +81,42 @@ InterviewView.prototype.onAddToApplication = function()
 	pt.find(".question-button").click(function() {
 		let id = $(this).parents(".question").attr("question-id");
 		let question = interviewee.questions[id];
-		
+
 		if (!interviewee.disabled &amp;&amp; !question.disabled)
 		{
-			// Disable the question
-			if (!scope.options.canRepeat)
-			{
-				question.disabled = true;
-				$(this).toggleClass("question-disabled", question.disabled == true);
+			//perform setup
+			$(".video-prompt").prop("hidden",true);
+			$(".video-error").hide();
+			$(".interview-video").prop("hidden",false);
+			
+			if(scope.isClockRunning()){	//if we have just switched to a new question
+				//if you cannot interrupt this speaker
+				if(!scope.options.canInterrupt) return;
+				//if the previous video has not finished playing, save the point where it was paused
+				scope.application.interviewees[scope.options.interviewee.name][scope.currQuestion.prompt] = scope.DOMObject.find(".interview-video")[0].currentTime; 
 			}
+
+			//check if selected video exists, if not, show error message
+			window.style.checkIfFileExists(interviewee.videoDirectory + question.responseVideo, ()=>{
+				$(".video-error").show();
+				scope.stopClock();
+			});
 			
 			// Play the response video
-			scope.DOMObject.find(".video").text(interviewee.videoDirectory + question.responseVideo); // TODO, also need to take into account options.canInterrupt !!
-			
+			scope.DOMObject.find(".interview-video").attr('src',interviewee.videoDirectory + question.responseVideo);
+			scope.DOMObject.find(".interview-video")[0].currentTime = scope.application.interviewees[scope.options.interviewee.name][question.prompt];
+			scope.currQuestion = question;
+
+			// Disable the question only when video is finished
+			scope.DOMObject.find(".interview-video").on('ended',()=>{
+				if (!scope.options.canRepeat)
+				{
+					question.disabled = true;
+					$(this).toggleClass("question-disabled", question.disabled == true);
+					scope.stopClock();
+				}
+			});
+
 			// Start the clock, if necessary
 			if (!scope.isClockRunning())
 			{
@@ -93,17 +124,21 @@ InterviewView.prototype.onAddToApplication = function()
 			}
 		}
 	});
-	
+
 	// Make empty copies of the prototype
 	for (let i in interviewee.questions)
 	{
 		let question = interviewee.questions[i];
-		
+				
 		let obj = pt.clone(true)
 					.removeClass("question-prototype")
 					.addClass("question")
 					.attr("question-id", i);
+		if(!(i%2)) //add a border between the questions
+			$(obj).css("border-bottom","1px solid black"); 
 		obj.appendTo(pt.parent());
+		if(!this.application.interviewees[this.options.interviewee.name][question.prompt])	//set pausedAt value to 0 (initial) if not already set
+			this.application.interviewees[this.options.interviewee.name][question.prompt] = 0; 
 	}
 	
 	// Hide the prototype
@@ -111,7 +146,10 @@ InterviewView.prototype.onAddToApplication = function()
 	
 	// Back Button
 	this.DOMObject.find(".back").click(function() {
-		scope.application.pop(interviewee);
+		//if this user is not disabled yet, save current video pause point 
+		if(scope.options.interviewee.timeRemaining > 0 &amp;&amp; scope.currQuestion)
+			scope.application.interviewees[scope.options.interviewee.name][scope.currQuestion.prompt] = scope.DOMObject.find(".interview-video")[0].currentTime;
+		scope.application.pop(interviewee, "slideRight");
 	});
 }
 
@@ -156,10 +194,10 @@ InterviewView.prototype.onHide = function()
 InterviewView.prototype.updateTimeRemaining = function()
 {
 	let interviewee = this.options.interviewee;
-	
+		
 	this.DOMObject.find(".time").text(formatTime(interviewee.timeRemaining));
 	
-	this.DOMObject.toggleClass("interviewee-disabled", interviewee.disabled == true);
+	this.DOMObject.toggleClass("interview-view-disabled", interviewee.disabled == true);
 	this.DOMObject.find(".interviewee-disabled-message").toggle(interviewee.disabled == true);
 }
 
@@ -203,6 +241,7 @@ InterviewView.prototype.tickClock = function(scope)
 	{ // stop the clock
 		scope.stopClock();
 		interviewee.disabled = true;
+		$(".question").addClass("question-disabled");
 	}
 	
 	scope.updateTimeRemaining();
@@ -229,13 +268,13 @@ InterviewView.prototype.stopClock = function()
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="IntervieweeSelectionView.html">IntervieweeSelectionView</a></li><li><a href="InterviewView.html">InterviewView</a></li><li><a href="StackApplication.html">StackApplication</a></li><li><a href="StackView.html">StackView</a></li><li><a href="VideoMessageView.html">VideoMessageView</a></li></ul><h3>Global</h3><ul><li><a href="global.html#extend">extend</a></li><li><a href="global.html#formatTime">formatTime</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="IntervieweeSelectionView.html">IntervieweeSelectionView</a></li><li><a href="InterviewView.html">InterviewView</a></li><li><a href="StackApplication.html">StackApplication</a></li><li><a href="StackView.html">StackView</a></li><li><a href="Styling.html">Styling</a></li><li><a href="TextMessageView.html">TextMessageView</a></li><li><a href="VideoMessageView.html">VideoMessageView</a></li></ul><h3>Global</h3><ul><li><a href="global.html#extend">extend</a></li><li><a href="global.html#formatTime">formatTime</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon May 21 2018 15:40:35 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jun 05 2018 14:22:14 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
