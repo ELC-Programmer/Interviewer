@@ -2,18 +2,13 @@ body{
 	margin:0;
 	padding-bottom:30px;
 }
-
 #application{
 	width:95%;
 	margin:auto;
 }
-
 .titles{
 	font-family: 'Merriweather', serif;
 }
-
-
-
 body {
 	background-color: #eee;
 }
