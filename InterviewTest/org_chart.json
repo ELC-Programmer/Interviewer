@@ -4,12 +4,12 @@
 		"parent": "null",
 		"children": [
 						{
-						"name": "Vice President",
+						"name": "CFO",
 						"parent": "CEO",
 						"children": [
 						  {
 						    "name": "Manager of Sales",
-						    "parent": "Vice President",
+						    "parent": "CFO",
 						    "children":[
 						    	{
 						    		"name":"Sales Officer 1",
@@ -33,7 +33,7 @@
 						  },
 						  {
 						    "name": "Manager of Marketing",
-						    "parent": "Vice President",
+						    "parent": "CFO",
 						    "children":[
 						    	{
 						    		"name":"Marketer 1",
@@ -67,7 +67,7 @@
 						"children": [
 						  {
 						    "name": "Chief of Software Development",
-						    "parent": "Vice President",
+						    "parent": "CFO",
 						    "children": [
 						    	{
 							    	"name":"Navigation Team Manager",
@@ -122,7 +122,7 @@
 						  },
 						  {
 						    "name": "Chief of Mechanical Engineering",
-						    "parent": "Vice President",
+						    "parent": "CFO",
 						    "children": [
 						    	{
 						    		"name":"Mechanical Engineer 1",

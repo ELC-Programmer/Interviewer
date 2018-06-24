@@ -18,10 +18,9 @@ OrgChart = function(options){
 	
 }
 
-
 //create the div to hold the graph
 OrgChart.prototype.initTree = function(){
-	$('<div id="orgChart"></div>').appendTo('body');
+	$('<div id="orgChart"></div>').appendTo('body');//.hide();
 	$("#orgChart").append($("<div>").load("../OrgChart.html"));
 	$('<div class="floaterExitButton"></div>').appendTo('#orgChart').click(this.hideChart);
 }
@@ -30,14 +29,17 @@ OrgChart.prototype.buildGraph = function(hierarchy){
 }
 OrgChart.prototype.showChart = function(event){
 	event.stopPropagation(); //stop click event from propagating up and moving viewer to next screen
-	console.log(event.data['name']);
+	let name = event.data['name']; //get selected person's name 
+	//find person's position on orgChart
+	window.orgChart.currentlySelectedNode = d3.select("#orgChart svg").selectAll("g.node")[0].filter(function(d,i){ return d.textContent === name})[0];
+	d3.select(window.orgChart.currentlySelectedNode).select('circle').style("fill", "red"); //set the fill of person's node to red
 	$("#orgChart").show();
 }
 OrgChart.prototype.hideChart = function(){
-
 	$("#orgChart").hide();
+	d3.select(window.orgChart.currentlySelectedNode).select('circle').style("fill", "fff");
+	window.orgChart.currentlySelectedNode = null
 }
-
 OrgChart.prototype.ChartMaker = function(container, data){
 	// false=vertical, true=horizontal
 	let orientation = true;
@@ -77,16 +79,16 @@ OrgChart.prototype.ChartMaker = function(container, data){
 		nodes.forEach(function(d) { d.y = d.depth * 180; });
 
 		// Update the nodes…
-		var node = svg.selectAll("g.node").data(nodes, function(d) { return d.id || (d.id = ++i); });
+		var node = svg.selectAll("g.node").data(nodes, function(d) { return d.id || (d.id = ++i); }).attr("margin",10);
 
 		// Enter any new nodes at the parent's previous position.
 		var nodeEnter = node.enter().append("g").attr("class", "node")
-						  .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-						  .on("click", click);
+						  .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; });
+						  // .on("click", click);
 
 		nodeEnter.append("circle")
 				.attr("r", 1e-6)
-				.style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+				// .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
 		nodeEnter.append("text")
 					.attr("y", -15)//function(d) { return d.children || d._children ? -13 : 13; })
@@ -98,18 +100,18 @@ OrgChart.prototype.ChartMaker = function(container, data){
 		// Transition nodes to their new position.
 		var nodeUpdate = node.transition().duration(duration).attr("transform", orientation ? verticalTransition : horizontalTransition);
 
-		nodeUpdate.select("circle").attr("r", 10).style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+		nodeUpdate.select("circle").attr("r", 10).style("cursor","default");//.style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; })
 
-		nodeUpdate.select("text").style("fill-opacity", 1);
+		nodeUpdate.select("text").style("fill-opacity", 1).style("cursor","default");
 
 		// Transition exiting nodes to the parent's new position.
-		var nodeExit = node.exit().transition().duration(duration)
-							.attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
-							.remove();
+		// var nodeExit = node.exit().transition().duration(duration)
+		// 					.attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+		// 					.remove();
 
-		nodeExit.select("circle").attr("r", 1e-6);
+		// nodeExit.select("circle").attr("r", 1e-6);
 
-		nodeExit.select("text").style("fill-opacity", 1e-6);
+		// nodeExit.select("text").style("fill-opacity", 1e-6);
 
 		// Update the links…
 		var link = svg.selectAll("path.link").data(links, function(d) { return d.target.id; });
@@ -133,21 +135,21 @@ OrgChart.prototype.ChartMaker = function(container, data){
 			}).remove();
 
 		// Stash the old positions for transition.
-		nodes.forEach(function(d) {
-			d.x0 = d.x;
-			d.y0 = d.y;
-		});
+		// nodes.forEach(function(d) {
+		// 	d.x0 = d.x;
+		// 	d.y0 = d.y;
+		// });
 	}
 
-	// Toggle children on click.
-	function click(d) {
-	  if (d.children) {
-		d._children = d.children;
-		d.children = null;
-	  } else {
-		d.children = d._children;
-		d._children = null;
-	  }
-	  update(d);
-	}
+	// Toggle children on click? Probably better not to include this
+	// function click(d) {
+	//   if (d.children) {
+	// 	d._children = d.children;
+	// 	d.children = null;
+	//   } else {
+	// 	d.children = d._children;
+	// 	d._children = null;
+	//   }
+	//   update(d);
+	// }
 }

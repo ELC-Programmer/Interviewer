@@ -33,7 +33,7 @@
 	},
 	{
 		"name": "Carol Clark",
-		"title": "CFO",
+		"title": "Manager of Sales",
 		"profileImage": "images/carol.jpg",
 		"videoDirectory": "videos/clark/",
 		"questions": [
@@ -49,7 +49,7 @@
 	},
 	{
 		"name": "Carol Clark",
-		"title": "CFO",
+		"title": "Manager of Marketing",
 		"profileImage": "images/carol.jpg",
 		"videoDirectory": "videos/clark/",
 		"questions": [
@@ -65,7 +65,7 @@
 	},
 	{
 		"name": "Carol Clark",
-		"title": "CFO",
+		"title": "Object Detection Team Manager",
 		"profileImage": "images/carol.jpg",
 		"videoDirectory": "videos/clark/",
 		"questions": [
