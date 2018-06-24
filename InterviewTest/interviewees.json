@@ -32,49 +32,49 @@
 		]
 	},
 	{
-		"name": "Carol Clark",
+		"name": "Jocelyn Stockton",
 		"title": "Manager of Sales",
-		"profileImage": "images/carol.jpg",
+		"profileImage": "images/jocelyn.jpeg",
 		"videoDirectory": "videos/clark/",
 		"questions": [
 			{
-				"prompt": "Good morning, Clark. How are you?",
+				"prompt": "Good morning, Stockton. How are you?",
 				"responseVideo": "good_morning.mp4"
 			},
 			{
-				"prompt": "So, Clark, what do you do around here?",
+				"prompt": "So, Stockton, what do you do around here?",
 				"responseVideo": "what_do_you_do.mp4"
 			}
 		]
 	},
 	{
-		"name": "Carol Clark",
+		"name": "Walter Man",
 		"title": "Manager of Marketing",
-		"profileImage": "images/carol.jpg",
+		"profileImage": "images/walter.jpg",
 		"videoDirectory": "videos/clark/",
 		"questions": [
 			{
-				"prompt": "Good morning, Clark. How are you?",
+				"prompt": "Good morning, Man. How are you?",
 				"responseVideo": "good_morning.mp4"
 			},
 			{
-				"prompt": "So, Clark, what do you do around here?",
+				"prompt": "So, Man, what do you do around here?",
 				"responseVideo": "what_do_you_do.mp4"
 			}
 		]
 	},
 	{
-		"name": "Carol Clark",
+		"name": "James Mackeroon",
 		"title": "Object Detection Team Manager",
-		"profileImage": "images/carol.jpg",
+		"profileImage": "images/james.jpeg",
 		"videoDirectory": "videos/clark/",
 		"questions": [
 			{
-				"prompt": "Good morning, Clark. How are you?",
+				"prompt": "Good morning, James. How are you?",
 				"responseVideo": "good_morning.mp4"
 			},
 			{
-				"prompt": "So, Clark, what do you do around here?",
+				"prompt": "So, James, what do you do around here?",
 				"responseVideo": "what_do_you_do.mp4"
 			}
 		]

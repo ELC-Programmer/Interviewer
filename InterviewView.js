@@ -135,8 +135,8 @@ InterviewView.prototype.onShow = function()
 	let interviewee = this.options.interviewee;
 	
 	// Header
-	this.DOMObject.find(".name").text(interviewee.name);
-	this.DOMObject.find(".title").text(interviewee.title);
+	this.DOMObject.find(".name").text(interviewee.name).click({'name':interviewee.title},window.orgChart.showChart);
+	this.DOMObject.find(".title").text(interviewee.title).click({'name':interviewee.title},window.orgChart.showChart);
 	
 	// Questions
 	this.DOMObject.find(".question").each(function() {

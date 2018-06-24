@@ -33,10 +33,10 @@ OrgChart.prototype.showChart = function(event){
 	//find person's position on orgChart
 	window.orgChart.currentlySelectedNode = d3.select("#orgChart svg").selectAll("g.node")[0].filter(function(d,i){ return d.textContent === name})[0];
 	d3.select(window.orgChart.currentlySelectedNode).select('circle').style("fill", "red"); //set the fill of person's node to red
-	$("#orgChart").show();
+	$("#orgChart").fadeIn();
 }
 OrgChart.prototype.hideChart = function(){
-	$("#orgChart").hide();
+	$("#orgChart").fadeOut();
 	d3.select(window.orgChart.currentlySelectedNode).select('circle').style("fill", "fff");
 	window.orgChart.currentlySelectedNode = null
 }
