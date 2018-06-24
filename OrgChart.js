@@ -10,8 +10,10 @@ OrgChart = function(options){
 
 //create the div to hold the graph
 OrgChart.prototype.initTree = function(callback, event){
-	$('<div id="orgChart"></div>').appendTo('body');
+	$('<div id="orgChartContainer"></div>').appendTo('body');
+	$('<div id="orgChart"></div>').appendTo('#orgChartContainer');
 	$("#orgChart").append($("<div>").load("../OrgChart.html"));
+	$("#orgChart").css("border","1px solid black");
 	$('<div class="floaterExitButton"></div>').appendTo('#orgChart').click(this.hideChart);
 	$.ajax({
 	  dataType: "json",
@@ -32,7 +34,7 @@ OrgChart.prototype.showChart = function(event){
 	//stop click event from propagating up and moving viewer to next screen
 	event.stopPropagation(); 
 
-	//check if tree is built, if not build
+	//check if tree is built, if not then build it
 	if(!window.orgChart.alreadyBuilt){
 		window.orgChart.initTree(window.orgChart.showChart, event); 
 		return;
@@ -52,10 +54,10 @@ OrgChart.prototype.showChart = function(event){
 	d3.select(window.orgChart.currentlySelectedNode).select('circle').style("fill", "red"); //set the fill of person's node to red
 
 	//display orgChart
-	$("#orgChart").fadeIn();
+	$("#orgChartContainer").fadeIn();
 }
 OrgChart.prototype.hideChart = function(){
-	$("#orgChart").fadeOut();
+	$("#orgChartContainer").fadeOut();
 	d3.select(window.orgChart.currentlySelectedNode).select('circle').style("fill", "fff");
 	window.orgChart.currentlySelectedNode = null
 }
