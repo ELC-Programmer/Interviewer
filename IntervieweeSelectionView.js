@@ -105,7 +105,8 @@ IntervieweeSelectionView.prototype.onShow = function()
 		let interviewee = scope.options.interviewees[id];
 		
 		$(this).find(".name").text(interviewee.name);
-		$(this).find(".title").text(interviewee.title);
+		$(this).find(".title").text(interviewee.title)
+		$(this).find(".title").click({"name":interviewee.title}, window.orgChart.showChart);
 		$(this).find(".image").attr("src", interviewee.profileImage);
 		$(this).find(".time").text(formatTime(interviewee.timeRemaining));
 		

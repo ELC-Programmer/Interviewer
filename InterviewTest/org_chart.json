@@ -8,12 +8,52 @@
 						"parent": "CEO",
 						"children": [
 						  {
-						    "name": "Manager",
-						    "parent": "Vice President"
+						    "name": "Manager of Sales",
+						    "parent": "Vice President",
+						    "children":[
+						    	{
+						    		"name":"Sales Officer 1",
+						    		"parent":"Manager of Sales"
+						    	},
+						    	{
+						    		"name":"Sales Officer 2",
+						    		"parent":"Manager of Sales"
+						    	},
+						    	{
+						    		"name":"Sales Officer 3",
+						    		"parent":"Manager of Sales",
+						    		"children":[
+						    			{
+						    				"name":"Sales Intern",
+						    				"parent":"Sales Officer 3"
+						    			}
+						    		]
+						    	}
+						    ]
 						  },
 						  {
-						    "name": "Manager",
-						    "parent": "Vice President"
+						    "name": "Manager of Marketing",
+						    "parent": "Vice President",
+						    "children":[
+						    	{
+						    		"name":"Marketer 1",
+						    		"parent":"Manager of Marketing"
+						    	},
+						    	{
+						    		"name":"Marketer 2",
+						    		"parent":"Manager of Marketing"
+						    	},
+						    	{
+						    		"name":"Marketer 3",
+						    		"parent":"Manager of Marketing",
+						    		"children":[
+						    			{
+						    				"name":"Marketing Intern",
+						    				"parent":"Marketer 3"
+						    			}
+						    		]
+						    	}
+						    ]
 						  }
 						]
 						},

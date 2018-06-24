@@ -45,7 +45,6 @@
 		height:60px;
 		position:absolute;
 		top:0;
-		cursor:pointer;
 		background-size:contain;
 		background-repeat:no-repeat;
 	}

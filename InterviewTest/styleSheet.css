@@ -86,3 +86,9 @@ body {
 	background-image:url('../assets/cancel.png');
 	background-size:cover;
 }
+#chartHeader{
+	width:100%;
+	/*background-color:black;*/
+	height:25px;
+	text-align:center;
+}

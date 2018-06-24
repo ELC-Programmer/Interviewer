@@ -5,56 +5,44 @@
  * @param options: a dictionary of options, to allow for visual customizations (to be implemented)
  */
 OrgChart = function(options){
-	//this could be done much more easily using php 
-	//  but the standard php call sample from interviewtestapplication.js (commented below) 
-	//  wouldn't work for some reason :(
 	this.initTree();
 	let that = this;
 	$.ajax({
 	  dataType: "json",
 	  url: "org_chart.json",
-	  success: function(result1){
-	  	$.ajax({
-		  dataType: "json",
-		  url: "interviewees.json",
-		  success: function(result2){
-		  	that.buildGraph(result1,result2);	
-		  }
-		})
+	  success:function(data){
+		  	that.buildGraph(data);	
 	   },
-	   error: function(){alert('Invalid JSON or org_chart.json missing.')}
+	   error: function(){alert('Invalid JSON or org_chart file missing.')}
 	});
-
-	// let hierarchy = php require(__DIR__ . "/org_chart.json");
-	// let interviewees = php require(__DIR__ . "/interviewees.json");
-	// this.buildGraph(hierarchy,interviewees);
+	
 }
+
 
 //create the div to hold the graph
 OrgChart.prototype.initTree = function(){
 	$('<div id="orgChart"></div>').appendTo('body');
-	$('<div class="floaterExitButton"></div>').appendTo('#orgChart').click(this.hide);
+	$("#orgChart").append($("<div>").load("../OrgChart.html"));
+	$('<div class="floaterExitButton"></div>').appendTo('#orgChart').click(this.hideChart);
 }
-OrgChart.prototype.buildGraph = function(hierarchy, interviewees){
-	//recursively build the nodes in the tree
-	// iterate("0",null);
-	// function iterate(id,parent){
-	// 	for(var i=0; i<hierarchy[id]["children"].length; i++){
-	// 		iterate(hierarchy[id]["children"][i],name);
-	// 	}
-	// }
+OrgChart.prototype.buildGraph = function(hierarchy){
 	this.ChartMaker("#orgChart",hierarchy);
 }
-OrgChart.prototype.show = function(){
+OrgChart.prototype.showChart = function(event){
+	event.stopPropagation(); //stop click event from propagating up and moving viewer to next screen
+	console.log(event.data['name']);
 	$("#orgChart").show();
 }
-OrgChart.prototype.hide = function(){
+OrgChart.prototype.hideChart = function(){
+
 	$("#orgChart").hide();
 }
 
 OrgChart.prototype.ChartMaker = function(container, data){
+	// false=vertical, true=horizontal
+	let orientation = true;
 	// ************** Generate the tree diagram	 *****************
-	var margin = {top: 20, right: 120, bottom: 20, left: 120},
+	var margin = {top: 20, right: 30, bottom: 20, left: 30},
 		width = $(container).width() - margin.right - margin.left,
 		height = $(container).height() - margin.top - margin.bottom;
 		
@@ -63,8 +51,10 @@ OrgChart.prototype.ChartMaker = function(container, data){
 	var tree = d3.layout.tree().size([height, width]);
 
 	var horizontalTree = function(d){ return [d.y, d.x] },
-		verticalTree = function(d){ return [d.x, d.y] };
-	var diagonal = d3.svg.diagonal().projection(horizontalTree);
+		verticalTree = function(d){ return [d.x, d.y] },
+		verticalTransition = function(d) { return "translate(" + d.y + "," + d.x + ")"; },
+		horizontalTransition = function(d) { return "translate(" + d.x + "," + d.y + ")"; };
+	var diagonal = d3.svg.diagonal().projection(orientation ? horizontalTree : verticalTree);
 
 	var svg = d3.select(container).append("svg").attr("width", width + margin.right + margin.left).attr("height", height + margin.top + margin.bottom)
 	  			.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -75,7 +65,7 @@ OrgChart.prototype.ChartMaker = function(container, data){
 	  
 	update(root);
 
-	d3.select(self.frameElement).style("height", "500px");
+	// d3.select(self.frameElement).style("height", "500px");
 
 	function update(source) {
 
@@ -99,18 +89,16 @@ OrgChart.prototype.ChartMaker = function(container, data){
 				.style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
 		nodeEnter.append("text")
-					.attr("y", -20)//function(d) { return d.children || d._children ? -13 : 13; })
-					.attr("dy", ".35em")
+					.attr("y", -15)//function(d) { return d.children || d._children ? -13 : 13; })
+					.attr("dy", ".2em")
 					.attr("text-anchor", "middle")//function(d) { return d.children || d._children ? "end" : "start"; })
 					.text(function(d) { return d.name; })
 					.style("fill-opacity", 1e-6);
 
 		// Transition nodes to their new position.
-		var nodeUpdate = node.transition()
-								.duration(duration).attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+		var nodeUpdate = node.transition().duration(duration).attr("transform", orientation ? verticalTransition : horizontalTransition);
 
-		nodeUpdate.select("circle").attr("r", 10)
-					.style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+		nodeUpdate.select("circle").attr("r", 10).style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
 		nodeUpdate.select("text").style("fill-opacity", 1);
 
