@@ -3,149 +3,44 @@
 		"name": "CEO",
 		"parent": "null",
 		"children": [
-						{
-						"name": "CFO",
-						"parent": "CEO",
-						"children": [
-						  {
-						    "name": "Manager of Sales",
-						    "parent": "CFO",
-						    "children":[
-						    	{
-						    		"name":"Sales Officer 1",
-						    		"parent":"Manager of Sales"
-						    	},
-						    	{
-						    		"name":"Sales Officer 2",
-						    		"parent":"Manager of Sales"
-						    	},
-						    	{
-						    		"name":"Sales Officer 3",
-						    		"parent":"Manager of Sales",
-						    		"children":[
-						    			{
-						    				"name":"Sales Intern",
-						    				"parent":"Sales Officer 3"
-						    			}
-						    		]
-						    	}
-						    ]
-						  },
-						  {
-						    "name": "Manager of Marketing",
-						    "parent": "CFO",
-						    "children":[
-						    	{
-						    		"name":"Marketer 1",
-						    		"parent":"Manager of Marketing"
-						    	},
-						    	{
-						    		"name":"Marketer 2",
-						    		"parent":"Manager of Marketing"
-						    	},
-						    	{
-						    		"name":"Marketer 3",
-						    		"parent":"Manager of Marketing",
-						    		"children":[
-						    			{
-						    				"name":"Marketing Intern",
-						    				"parent":"Marketer 3"
-						    			}
-						    		]
-						    	}
-						    ]
-						  }
-						]
-						},
-						{
-						"name": "Secretary",
-						"parent": "CEO"
-						},
-						{
-						"name": "CTO",
-						"parent": "CEO",
-						"children": [
-						  {
-						    "name": "Chief of Software Development",
-						    "parent": "CFO",
-						    "children": [
-						    	{
-							    	"name":"Navigation Team Manager",
-							    	"parent":"Chief of Software Development",
-							    	"children":[
-								    	{
-								    		"name":"Software Developer 1",
-								    		"parent":"Chief of Software Development"
-								    	},
-								    	{
-								    		"name":"Software Developer 2",
-								    		"parent":"Chief of Software Development"
-								    	},
-								    	{
-								    		"name":"Software Developer 3",
-								    		"parent":"Chief of Software Development",
-								    		"children": [
-								    			{
-								    				"name":"SDE Navigation Intern",
-								    				"parent":"Software Developer 3"
-								    			}
-								    		]
-								    	}
-								    ]
-						    	},
-						    	{
-							    	"name":"Object Detection Team Manager",
-							    	"parent":"Chief of Software Development",
-							    	"children":[
-								    	{
-								    		"name":"Software Developer 1",
-								    		"parent":"Chief of Software Development"
-								    	},
-								    	{
-								    		"name":"Software Developer 2",
-								    		"parent":"Chief of Software Development"
-								    	},
-								    	{
-								    		"name":"Software Developer 3",
-								    		"parent":"Chief of Software Development",
-								    		"children": [
-								    			{
-								    				"name":"SDE Obj Det Intern",
-								    				"parent":"Software Developer 3"
-								    			}
-								    		]
-								    	}
-								    ]
-						    	}
-
-						    ]
-						  },
-						  {
-						    "name": "Chief of Mechanical Engineering",
-						    "parent": "CFO",
-						    "children": [
-						    	{
-						    		"name":"Mechanical Engineer 1",
-						    		"parent":"Chief of Software Development"
-						    	},
-						    	{
-						    		"name":"Mechanical Engineer 2",
-						    		"parent":"Chief of Software Development"
-						    	},
-						    	{
-						    		"name":"Mechanical Engineer 3",
-						    		"parent":"Chief of Software Development",
-						    		"children":[
-						    			{
-						    				"name":"MechE Intern",
-						    				"parent":"Mechanical Engineer 3"
-						    			}
-						    		]
-						    	}
-						    ]
-						  }
-					]
-		}
+			{
+				"name": "V.P. Engineering",
+				"parent": "CEO",
+				"children": [
+				  {
+				    "name": "Manager of Hardware Development",
+				    "parent": "V.P. Engineering"
+				  },
+				  {
+				    "name": "Manager of Software Design",
+				    "parent": "V.P. Engineering"
+				  }
+				]
+			},
+			{
+				"name": "V.P. Research and Development",
+				"parent": "CEO"
+			},
+			{
+				"name": "V.P. Production",
+				"parent": "CEO",
+				"children": [
+				  {
+				    "name": "Manager Quality Control",
+				    "parent": "CEO"
+				  }
+			    ]
+		    },
+			{
+				"name": "V.P. Sales and Promotion",
+				"parent": "CEO",
+				"children": [
+					{
+						"name":"Manager Marketing Research",
+						"parent":"Chief of Software Development"
+					}
+				]
+			}
 		]
 	}
 ]

@@ -20,19 +20,28 @@ OrgChart = function(options){
 
 //create the div to hold the graph
 OrgChart.prototype.initTree = function(){
-	$('<div id="orgChart"></div>').appendTo('body').hide();
+	$('<div id="orgChart"></div>').appendTo('body');//.attr("display","none");
 	$("#orgChart").append($("<div>").load("../OrgChart.html"));
 	$('<div class="floaterExitButton"></div>').appendTo('#orgChart').click(this.hideChart);
 }
 OrgChart.prototype.buildGraph = function(hierarchy){
-	this.ChartMaker("#orgChart",hierarchy);
+	this.ChartMaker("#orgGraph",hierarchy);
 }
 OrgChart.prototype.showChart = function(event){
 	event.stopPropagation(); //stop click event from propagating up and moving viewer to next screen
-	let name = event.data['name']; //get selected person's name 
+	let pos = event.data['pos']; //get selected person's name 
+	if(window.orgChart.currentlySelectedNode) //empty previous circle if colored in
+		d3.select(window.orgChart.currentlySelectedNode).select('circle').style("fill", "fff");
+
 	//find person's position on orgChart
-	window.orgChart.currentlySelectedNode = d3.select("#orgChart svg").selectAll("g.node")[0].filter(function(d,i){ return d.textContent === name})[0];
+	window.orgChart.currentlySelectedNode = d3.select("#orgChart svg").selectAll("g.node")[0].filter(function(d,i){ return d.textContent === pos})[0];
 	d3.select(window.orgChart.currentlySelectedNode).select('circle').style("fill", "red"); //set the fill of person's node to red
+	//update image 
+	//update name 
+	//update position
+	$("#chosenPerson > #name").html(event.data['name']);
+	$("#chosenPerson > #pos").html(event.data['pos']);
+	$("#chosenPerson > #personImage").css("background-image","url("+event.data['img']+")");
 	$("#orgChart").fadeIn();
 }
 OrgChart.prototype.hideChart = function(){
@@ -42,15 +51,15 @@ OrgChart.prototype.hideChart = function(){
 }
 OrgChart.prototype.ChartMaker = function(container, data){
 	// false=vertical, true=horizontal
-	let orientation = true;
+	let orientation = false;
 	// ************** Generate the tree diagram	 *****************
-	var margin = {top: 20, right: 30, bottom: 20, left: 30},
+	var margin = {top: 40, right: 30, bottom: 20, left: 30},
 		width = $(container).width() - margin.right - margin.left,
 		height = $(container).height() - margin.top - margin.bottom;
 		
 	var i = 0, duration = 750, root;
 
-	var tree = d3.layout.tree().size([height, width]);
+	var tree = d3.layout.tree().size([width, height]).separation(function(a, b) { return (a.parent == b.parent ? 1 : 2); });
 
 	var horizontalTree = function(d){ return [d.y, d.x] },
 		verticalTree = function(d){ return [d.x, d.y] },
@@ -62,8 +71,8 @@ OrgChart.prototype.ChartMaker = function(container, data){
 	  			.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 	root = data[0];
-	root.x0 = height / 2;
-	root.y0 = 0;
+	root.x0 = 0;
+	root.y0 = width / 2;
 	  
 	update(root);
 
@@ -83,7 +92,8 @@ OrgChart.prototype.ChartMaker = function(container, data){
 
 		// Enter any new nodes at the parent's previous position.
 		var nodeEnter = node.enter().append("g").attr("class", "node")
-						  .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; });
+						  .attr("transform", function(d) { return "translate(" + source.x0 + "," + source.y0 + ")"; }); 
+						  //x0,y0 wrong but no one (except me) will ever see the transition happen as the graph is being built
 						  // .on("click", click);
 
 		nodeEnter.append("circle")
@@ -95,7 +105,7 @@ OrgChart.prototype.ChartMaker = function(container, data){
 					.attr("dy", ".2em")
 					.attr("text-anchor", "middle")//function(d) { return d.children || d._children ? "end" : "start"; })
 					.text(function(d) { return d.name; })
-					.style("fill-opacity", 1e-6);
+					.style("fill-opacity", 1);
 
 		// Transition nodes to their new position.
 		var nodeUpdate = node.transition().duration(duration).attr("transform", orientation ? verticalTransition : horizontalTransition);

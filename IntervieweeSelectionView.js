@@ -99,14 +99,14 @@ IntervieweeSelectionView.prototype.onAddToApplication = function()
 IntervieweeSelectionView.prototype.onShow = function()
 {
 	let scope = this;
-	
 	this.DOMObject.find(".interviewee").each(function() {
 		let id = $(this).attr("interviewee-id");
 		let interviewee = scope.options.interviewees[id];
+		let orgChartAttrs = {"pos":interviewee.title, "img":interviewee.profileImage, "name":interviewee.name}
 		
 		$(this).find(".name").text(interviewee.name);
 		$(this).find(".title").text(interviewee.title)
-		$(this).find(".title").click({"name":interviewee.title}, window.orgChart.showChart);
+		$(this).find(".title").click(orgChartAttrs, window.orgChart.showChart);
 		$(this).find(".image").attr("src", interviewee.profileImage);
 		$(this).find(".time").text(formatTime(interviewee.timeRemaining));
 		

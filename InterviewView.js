@@ -133,10 +133,11 @@ InterviewView.prototype.onShow = function()
 {
 	let scope = this;
 	let interviewee = this.options.interviewee;
+	let orgChartAttrs = {"pos":interviewee.title, "img":interviewee.profileImage, "name":interviewee.name}
 	
 	// Header
-	this.DOMObject.find(".name").text(interviewee.name).click({'name':interviewee.title},window.orgChart.showChart);
-	this.DOMObject.find(".title").text(interviewee.title).click({'name':interviewee.title},window.orgChart.showChart);
+	this.DOMObject.find(".name").text(interviewee.name).click(orgChartAttrs,window.orgChart.showChart);
+	this.DOMObject.find(".title").text(interviewee.title).click(orgChartAttrs,window.orgChart.showChart);
 	
 	// Questions
 	this.DOMObject.find(".question").each(function() {

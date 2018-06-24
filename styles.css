@@ -31,16 +31,46 @@
 		transform: translate(-50%, -50%);
 }
 
-.node circle {
-   fill: #fff;
-   stroke: steelblue;
-   stroke-width: 3px;
- }
 
- .node text { font: 12px sans-serif; }
+#orgChart{
+	position:fixed;
+	top:12.5vh;
+	left:12.5vw;
+	height:75vh;
+	width:75vw;
+	background-color:white;
+}
+	.node {
+	  cursor: pointer;
+	}
+		.node circle {
+		  fill: #fff;
+		  stroke: steelblue;
+		  stroke-width: 1.5px;
+		}
+		.node text {
+		  font: 10px sans-serif;
+		}
 
- .link {
-   fill: none;
-   stroke: #ccc;
-   stroke-width: 2px;
- }
+		.link {
+		  fill: none;
+		  stroke: #ccc;
+		  stroke-width: 1.5px;
+		}
+
+	.floaterExitButton{
+		width:20px;
+		height:20px;
+		position:absolute;
+		right:5px;
+		top:5px;
+		cursor:pointer;
+		background-image:url('../assets/cancel.png');
+		background-size:cover;
+	}
+	#chartHeader{
+		width:100%;
+		/*background-color:black;*/
+		height:25px;
+		text-align:center;
+	}

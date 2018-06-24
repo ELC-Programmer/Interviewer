@@ -17,7 +17,7 @@
 	},
 	{
 		"name": "Carol Clark",
-		"title": "CFO",
+		"title": "V.P. Engineering",
 		"profileImage": "images/carol.jpg",
 		"videoDirectory": "videos/clark/",
 		"questions": [
@@ -33,7 +33,7 @@
 	},
 	{
 		"name": "Jocelyn Stockton",
-		"title": "Manager of Sales",
+		"title": "Manager of Hardware Development",
 		"profileImage": "images/jocelyn.jpeg",
 		"videoDirectory": "videos/clark/",
 		"questions": [
@@ -49,7 +49,7 @@
 	},
 	{
 		"name": "Walter Man",
-		"title": "Manager of Marketing",
+		"title": "Manager of Software Design",
 		"profileImage": "images/walter.jpg",
 		"videoDirectory": "videos/clark/",
 		"questions": [
@@ -65,7 +65,71 @@
 	},
 	{
 		"name": "James Mackeroon",
-		"title": "Object Detection Team Manager",
+		"title": "V.P. Research and Development",
+		"profileImage": "images/james.jpeg",
+		"videoDirectory": "videos/clark/",
+		"questions": [
+			{
+				"prompt": "Good morning, James. How are you?",
+				"responseVideo": "good_morning.mp4"
+			},
+			{
+				"prompt": "So, James, what do you do around here?",
+				"responseVideo": "what_do_you_do.mp4"
+			}
+		]
+	},
+	{
+		"name": "James Mackeroon",
+		"title": "V.P. Production",
+		"profileImage": "images/james.jpeg",
+		"videoDirectory": "videos/clark/",
+		"questions": [
+			{
+				"prompt": "Good morning, James. How are you?",
+				"responseVideo": "good_morning.mp4"
+			},
+			{
+				"prompt": "So, James, what do you do around here?",
+				"responseVideo": "what_do_you_do.mp4"
+			}
+		]
+	},
+	{
+		"name": "James Mackeroon",
+		"title": "Manager Quality Control",
+		"profileImage": "images/james.jpeg",
+		"videoDirectory": "videos/clark/",
+		"questions": [
+			{
+				"prompt": "Good morning, James. How are you?",
+				"responseVideo": "good_morning.mp4"
+			},
+			{
+				"prompt": "So, James, what do you do around here?",
+				"responseVideo": "what_do_you_do.mp4"
+			}
+		]
+	},
+	{
+		"name": "James Mackeroon",
+		"title": "V.P. Sales and Promotion",
+		"profileImage": "images/james.jpeg",
+		"videoDirectory": "videos/clark/",
+		"questions": [
+			{
+				"prompt": "Good morning, James. How are you?",
+				"responseVideo": "good_morning.mp4"
+			},
+			{
+				"prompt": "So, James, what do you do around here?",
+				"responseVideo": "what_do_you_do.mp4"
+			}
+		]
+	},
+	{
+		"name": "James Mackeroon",
+		"title": "Manager Marketing Research",
 		"profileImage": "images/james.jpeg",
 		"videoDirectory": "videos/clark/",
 		"questions": [
