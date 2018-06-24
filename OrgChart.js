@@ -5,43 +5,53 @@
  * @param options: a dictionary of options, to allow for visual customizations (to be implemented)
  */
 OrgChart = function(options){
-	this.initTree();
-	let that = this;
+	this.alreadyBuilt = false;
+}
+
+//create the div to hold the graph
+OrgChart.prototype.initTree = function(callback, event){
+	$('<div id="orgChart"></div>').appendTo('body');//.attr("display","none");
+	$("#orgChart").append($("<div>").load("../OrgChart.html"));
+	$('<div class="floaterExitButton"></div>').appendTo('#orgChart').click(this.hideChart);
 	$.ajax({
 	  dataType: "json",
 	  url: "org_chart.json",
 	  success:function(data){
-		  	that.buildGraph(data);	
+		  	window.orgChart.buildGraph(data);
+		  	window.orgChart.alreadyBuilt = true;	
+		  	if(callback && event) callback(event);
+		  	else if(callback) callback();
 	   },
 	   error: function(){alert('Invalid JSON or org_chart file missing.')}
 	});
-	
-}
-
-//create the div to hold the graph
-OrgChart.prototype.initTree = function(){
-	$('<div id="orgChart"></div>').appendTo('body');//.attr("display","none");
-	$("#orgChart").append($("<div>").load("../OrgChart.html"));
-	$('<div class="floaterExitButton"></div>').appendTo('#orgChart').click(this.hideChart);
 }
 OrgChart.prototype.buildGraph = function(hierarchy){
 	this.ChartMaker("#orgGraph",hierarchy);
 }
 OrgChart.prototype.showChart = function(event){
-	event.stopPropagation(); //stop click event from propagating up and moving viewer to next screen
-	let pos = event.data['pos']; //get selected person's name 
-	if(window.orgChart.currentlySelectedNode) //empty previous circle if colored in
-		d3.select(window.orgChart.currentlySelectedNode).select('circle').style("fill", "fff");
+	//stop click event from propagating up and moving viewer to next screen
+	event.stopPropagation(); 
 
-	//find person's position on orgChart
-	window.orgChart.currentlySelectedNode = d3.select("#orgChart svg").selectAll("g.node")[0].filter(function(d,i){ return d.textContent === pos})[0];
-	d3.select(window.orgChart.currentlySelectedNode).select('circle').style("fill", "red"); //set the fill of person's node to red
-	//update image 
-	//update name 
-	//update position
+	//check if tree is built, if not build
+	if(!window.orgChart.alreadyBuilt){
+		window.orgChart.initTree(window.orgChart.showChart, event); 
+		return;
+	}
+
+	//get and set selected person's position, name, and image
 	$("#chosenPerson > #name").html(event.data['name']);
 	$("#chosenPerson > #pos").html(event.data['pos']);
 	$("#chosenPerson > #personImage").css("background-image","url("+event.data['img']+")");
+
+	 //empty previous circle if colored in
+	if(window.orgChart.currentlySelectedNode)
+		d3.select(window.orgChart.currentlySelectedNode).select('circle').style("fill", "fff");
+
+	//find person's position on orgChart
+	window.orgChart.currentlySelectedNode = d3.select("#orgChart svg").selectAll("g.node")[0].filter(function(d,i){ return d.textContent === event.data['pos']})[0];
+	d3.select(window.orgChart.currentlySelectedNode).select('circle').style("fill", "red"); //set the fill of person's node to red
+
+	//display orgChart
 	$("#orgChart").fadeIn();
 }
 OrgChart.prototype.hideChart = function(){
@@ -93,7 +103,6 @@ OrgChart.prototype.ChartMaker = function(container, data){
 		// Enter any new nodes at the parent's previous position.
 		var nodeEnter = node.enter().append("g").attr("class", "node")
 						  .attr("transform", function(d) { return "translate(" + source.x0 + "," + source.y0 + ")"; }); 
-						  //x0,y0 wrong but no one (except me) will ever see the transition happen as the graph is being built
 						  // .on("click", click);
 
 		nodeEnter.append("circle")
