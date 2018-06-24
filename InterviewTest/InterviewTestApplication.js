@@ -35,6 +35,7 @@ var InterviewTestApplication = function(container, toStyle) {
 	});
 	
 	window.style = new Styling();
+	window.orgChart = new OrgChart();
 	this.show(textView);
 }
 extend(StackApplication, InterviewTestApplication);

@@ -1,16 +1,111 @@
-{
-	"CEO":{
-		"Vice President":{
-			"CFO":{
-				"Software Devs":{
+[
+	{
+		"name": "CEO",
+		"parent": "null",
+		"children": [
+						{
+						"name": "Vice President",
+						"parent": "CEO",
+						"children": [
+						  {
+						    "name": "Manager",
+						    "parent": "Vice President"
+						  },
+						  {
+						    "name": "Manager",
+						    "parent": "Vice President"
+						  }
+						]
+						},
+						{
+						"name": "Secretary",
+						"parent": "CEO"
+						},
+						{
+						"name": "CTO",
+						"parent": "CEO",
+						"children": [
+						  {
+						    "name": "Chief of Software Development",
+						    "parent": "Vice President",
+						    "children": [
+						    	{
+							    	"name":"Navigation Team Manager",
+							    	"parent":"Chief of Software Development",
+							    	"children":[
+								    	{
+								    		"name":"Software Developer 1",
+								    		"parent":"Chief of Software Development"
+								    	},
+								    	{
+								    		"name":"Software Developer 2",
+								    		"parent":"Chief of Software Development"
+								    	},
+								    	{
+								    		"name":"Software Developer 3",
+								    		"parent":"Chief of Software Development",
+								    		"children": [
+								    			{
+								    				"name":"SDE Navigation Intern",
+								    				"parent":"Software Developer 3"
+								    			}
+								    		]
+								    	}
+								    ]
+						    	},
+						    	{
+							    	"name":"Object Detection Team Manager",
+							    	"parent":"Chief of Software Development",
+							    	"children":[
+								    	{
+								    		"name":"Software Developer 1",
+								    		"parent":"Chief of Software Development"
+								    	},
+								    	{
+								    		"name":"Software Developer 2",
+								    		"parent":"Chief of Software Development"
+								    	},
+								    	{
+								    		"name":"Software Developer 3",
+								    		"parent":"Chief of Software Development",
+								    		"children": [
+								    			{
+								    				"name":"SDE Obj Det Intern",
+								    				"parent":"Software Developer 3"
+								    			}
+								    		]
+								    	}
+								    ]
+						    	}
 
-				},
-			},
-			"COO":{
-				"Administrative Staff":{
-
-				}
-			}
+						    ]
+						  },
+						  {
+						    "name": "Chief of Mechanical Engineering",
+						    "parent": "Vice President",
+						    "children": [
+						    	{
+						    		"name":"Mechanical Engineer 1",
+						    		"parent":"Chief of Software Development"
+						    	},
+						    	{
+						    		"name":"Mechanical Engineer 2",
+						    		"parent":"Chief of Software Development"
+						    	},
+						    	{
+						    		"name":"Mechanical Engineer 3",
+						    		"parent":"Chief of Software Development",
+						    		"children":[
+						    			{
+						    				"name":"MechE Intern",
+						    				"parent":"Mechanical Engineer 3"
+						    			}
+						    		]
+						    	}
+						    ]
+						  }
+					]
 		}
+		]
 	}
-}
+]
