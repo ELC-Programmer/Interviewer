@@ -10,7 +10,7 @@ OrgChart = function(options){
 
 //create the div to hold the graph
 OrgChart.prototype.initTree = function(callback, event){
-	$('<div id="orgChart"></div>').appendTo('body');//.attr("display","none");
+	$('<div id="orgChart"></div>').appendTo('body');
 	$("#orgChart").append($("<div>").load("../OrgChart.html"));
 	$('<div class="floaterExitButton"></div>').appendTo('#orgChart').click(this.hideChart);
 	$.ajax({
@@ -81,8 +81,8 @@ OrgChart.prototype.ChartMaker = function(container, data){
 	  			.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 	root = data[0];
-	root.x0 = 0;
-	root.y0 = width / 2;
+	root.x0 = width / 2;
+	root.y0 = 0;
 	  
 	update(root);
 
@@ -109,19 +109,25 @@ OrgChart.prototype.ChartMaker = function(container, data){
 				.attr("r", 1e-6)
 				// .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
-		nodeEnter.append("text")
-					.attr("y", -15)//function(d) { return d.children || d._children ? -13 : 13; })
-					.attr("dy", ".2em")
-					.attr("text-anchor", "middle")//function(d) { return d.children || d._children ? "end" : "start"; })
-					.text(function(d) { return d.name; })
+		// nodeEnter.append("text")
+		// 			.attr("y", -15)//function(d) { return d.children || d._children ? -13 : 13; })
+		// 			.attr("dy", ".2em")
+		// 			.attr("text-anchor", "middle")//function(d) { return d.children || d._children ? "end" : "start"; })
+		// 			.text(function(d) { return d.name; })
 					.style("fill-opacity", 1);
+		nodeEnter.append("foreignObject")
+				    .attr("width", 70)
+				    .attr("height", 20).attr("x", 15).attr("y",-15)//function(d) { return d.children || d._children ? -13 : 13; })
+					.attr("dy", ".2em")
+					.attr("text-anchor", "bottom")//function(d) { return d.children || d._children ? "end" : "start"; })
+					.text(function(d) { return d.name; })
 
 		// Transition nodes to their new position.
 		var nodeUpdate = node.transition().duration(duration).attr("transform", orientation ? verticalTransition : horizontalTransition);
 
 		nodeUpdate.select("circle").attr("r", 10).style("cursor","default");//.style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; })
 
-		nodeUpdate.select("text").style("fill-opacity", 1).style("cursor","default");
+		nodeUpdate.select("foreignObject").style("fill-opacity", 1).style("cursor","default");
 
 		// Transition exiting nodes to the parent's new position.
 		// var nodeExit = node.exit().transition().duration(duration)

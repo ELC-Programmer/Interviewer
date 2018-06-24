@@ -8,11 +8,11 @@
 				"parent": "CEO",
 				"children": [
 				  {
-				    "name": "Manager of Hardware Development",
+				    "name": "Manager Hardware Development",
 				    "parent": "V.P. Engineering"
 				  },
 				  {
-				    "name": "Manager of Software Design",
+				    "name": "Manager Software Design",
 				    "parent": "V.P. Engineering"
 				  }
 				]
@@ -37,7 +37,7 @@
 				"children": [
 					{
 						"name":"Manager Marketing Research",
-						"parent":"Chief of Software Development"
+						"parent":"Chief Software Development"
 					}
 				]
 			}
