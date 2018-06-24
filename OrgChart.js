@@ -20,7 +20,7 @@ OrgChart = function(options){
 
 //create the div to hold the graph
 OrgChart.prototype.initTree = function(){
-	$('<div id="orgChart"></div>').appendTo('body');//.hide();
+	$('<div id="orgChart"></div>').appendTo('body').hide();
 	$("#orgChart").append($("<div>").load("../OrgChart.html"));
 	$('<div class="floaterExitButton"></div>').appendTo('#orgChart').click(this.hideChart);
 }
