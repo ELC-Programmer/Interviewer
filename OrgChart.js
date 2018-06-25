@@ -4,7 +4,7 @@
  * @class
  */
 OrgChart = function(){
-	this.alreadyBuilt = false;
+	this.alreadyBuilt = 0;
 }
 
 /**
@@ -21,7 +21,7 @@ OrgChart.prototype.initTree = function(callback, event){
 	  url: "org_chart.json",
 	  success:function(data){
 		  	window.orgChart.ChartMaker("#orgGraph",data);
-		  	window.orgChart.alreadyBuilt = true;	
+		  	window.orgChart.alreadyBuilt = 2;	
 		  	if(callback && event) callback(event);
 		  	else if(callback) callback();
 	   },
@@ -37,11 +37,16 @@ OrgChart.prototype.showChart = function(event){
 	//stop click event from propagating up and moving viewer to next screen
 	event.stopPropagation(); 
 
+		console.log('here in show')
+
 	//check if tree is built, if not then build it
-	if(!window.orgChart.alreadyBuilt){
+	if(window.orgChart.alreadyBuilt == 0){
+		window.orgChart.alreadyBuilt = 1; //make sure we don't come back here while building the chart
 		window.orgChart.initTree(window.orgChart.showChart, event); 
 		return;
 	}
+
+	if(window.orgChart.alreadyBuilt == 1) return; //wait for builder to finish building
 
 	//get and set selected person's position, name, and image
 	$("#chosenPerson > #name").html(event.data['name']);

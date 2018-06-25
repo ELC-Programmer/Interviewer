@@ -2,7 +2,7 @@
 	{
 		"name": "John Smith",
 		"title": "CEO",
-		"profileImage": "images/smith.jpeg",
+		"profileImage": "images/smith.jpg",
 		"videoDirectory": "videos/smith/",
 		"questions": [
 			{
