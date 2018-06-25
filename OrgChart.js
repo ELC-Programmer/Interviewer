@@ -11,11 +11,11 @@ OrgChart = function(){
  * This function is called to initialize the tree when the tree is first shown.
  */
 OrgChart.prototype.initTree = function(callback, event){
-	$('<div id="orgChartContainer"></div>').appendTo('body');
+	$('<div id="orgChartContainer"></div>').appendTo('body').click(window.orgChart.hideChart);
 	$('<div id="orgChart"></div>').appendTo('#orgChartContainer');
 	$("#orgChart").append($("<div>").load("../OrgChart.html"));
 	$("#orgChart").css("border","1px solid black");
-	$('<div class="floaterExitButton"></div>').appendTo('#orgChart').click(this.hideChart);
+	$('<div class="floaterExitButton"></div>').appendTo('#orgChart').click(window.orgChart.hideChart);
 	$.ajax({
 	  dataType: "json",
 	  url: "org_chart.json",
