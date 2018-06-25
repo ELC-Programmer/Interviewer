@@ -3,6 +3,8 @@
 		margin-top: 30px;
 		margin-bottom: 15px;
 		font-family: "Tajawal";
+		display:flex;
+		flex-direction:row;
 	}
 	
 	.interview-view-title {
@@ -17,6 +19,8 @@
 	.time-container{
 		font-size: 18px;
 		margin-left: 80px;
+		padding:4px;
+		border-radius:5px;
 	}
 		.interviewee-disabled-message{
 			/* animation: blinker 2s linear infinite; */
@@ -31,6 +35,10 @@
 			20%{
 				background-color:#ED1233;
 			}
+		}
+		#time-instruction{
+			font-style:italic;
+			margin:0;
 		}
 	.container{
 		display:flex;
@@ -84,14 +92,15 @@
 				li > a{
 					cursor:pointer;
 				}
-	.name{
-		cursor:pointer;
-	}
+			
 </style>
 
 <div class="interview-view-header">
 	<span class="interview-view-title sub-titles">Interviewing <span class="name">NAME</span> [<span class="title">TITLE</span>]</span>
-	<span class="time-container"><span class="time">X:XX</span> Remaining</span>
+	<span class="time-container">
+		<span class="time">X:XX</span> Remaining
+		<p id="time-instruction">Time begins with the first question selected</p>
+	</span> 
 </div>
 	
 <p class="interviewee-disabled-message sub-titles" hidden>Time's up. Please choose another interviewee.</p>
@@ -102,7 +111,7 @@
 		<div class="video-prompt center-horz-vert">
 			<img class="icon" src="../assets/video-player.png">
 			<br />
-			<p class="sub-titles">Please select a video option on the right.</p>
+			<p class="sub-titles">Please select a video option on the right.</p> 
 		</div>	
 		<div class="video-error center-horz-vert" hidden>
 			<img class="icon" style="width:90%" src="../assets/broken-video.png">

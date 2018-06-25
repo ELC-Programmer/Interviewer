@@ -44,6 +44,7 @@ InterviewView.prototype.onAddToApplication = function()
 {
 	let scope = this;
 	let interviewee = this.options.interviewee;
+	this.firstQuestion = true;
 	if(!this.application.interviewees[this.options.interviewee.name])
 		this.application.interviewees[this.options.interviewee.name] = {};
 
@@ -60,7 +61,10 @@ InterviewView.prototype.onAddToApplication = function()
 			$(".video-prompt").prop("hidden",true);
 			$(".video-error").hide();
 			$(".interview-video").prop("hidden",false);
-			
+			if(scope.firstQuestion){ 
+				scope.flashTimeInstruction();
+				scope.firstQuestion = false;
+			}
 			if(scope.isClockRunning()){	//if we have just switched to a new question
 				//if you cannot interrupt this speaker
 				if(!scope.options.canInterrupt) return;
@@ -136,7 +140,7 @@ InterviewView.prototype.onShow = function()
 	let orgChartAttrs = {"pos":interviewee.title, "img":interviewee.profileImage, "name":interviewee.name}
 	
 	// Header
-	this.DOMObject.find(".name").text(interviewee.name).click(orgChartAttrs,window.orgChart.showChart);
+	this.DOMObject.find(".name").text(interviewee.name);
 	this.DOMObject.find(".title").text(interviewee.title).click(orgChartAttrs,window.orgChart.showChart);
 	
 	// Questions
@@ -151,6 +155,14 @@ InterviewView.prototype.onShow = function()
 	
 	// Clock
 	this.updateTimeRemaining();
+}
+
+
+/**
+ * Flashes warning that timer begins now
+ */
+InterviewView.prototype.flashTimeInstruction = function(){
+	$(".time-container").animate({ backgroundColor:"#F3DE8A"},1500,function(){ $(".time-container").animate({ backgroundColor:"transparent"}, 1500) });
 }
 
 /**
