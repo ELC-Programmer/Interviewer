@@ -12,7 +12,7 @@ var InterviewTestApplication = function(container, toStyle) {
 	let selectionView = new IntervieweeSelectionView({
 		interviewees: interviewees,
 		interviewViewOptions: {
-			canInterrupt: true
+			canInterrupt: false
 		}
 	});
 	
