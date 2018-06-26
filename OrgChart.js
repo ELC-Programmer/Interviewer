@@ -36,9 +36,6 @@ OrgChart.prototype.initTree = function(callback, event){
 OrgChart.prototype.showChart = function(event){
 	//stop click event from propagating up and moving viewer to next screen
 	event.stopPropagation(); 
-
-		console.log('here in show')
-
 	//check if tree is built, if not then build it
 	if(window.orgChart.alreadyBuilt == 0){
 		window.orgChart.alreadyBuilt = 1; //make sure we don't come back here while building the chart
@@ -57,6 +54,12 @@ OrgChart.prototype.showChart = function(event){
 	if(window.orgChart.currentlySelectedNode)
 		d3.select(window.orgChart.currentlySelectedNode).select('circle').style("fill", "fff");
 
+	//somehow another (really fast) asynchronous click got here while alreadyBuilt=1 was being set by the first click on showChart
+	//we need to make sure that we're checking for this condition, because this potentially breaks the orgchart 
+	if(d3.select("#orgChart svg").selectAll("g.node")[0] == undefined){
+		console.log('Quick double click on orgChart.show occurred.');
+		return;
+	}
 	//find person's position on orgChart
 	window.orgChart.currentlySelectedNode = d3.select("#orgChart svg").selectAll("g.node")[0].filter(function(d,i){ return d.textContent === event.data['pos']})[0];
 	d3.select(window.orgChart.currentlySelectedNode).select('circle').style("fill", "red"); //set the fill of person's node to red
