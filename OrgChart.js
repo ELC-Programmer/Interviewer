@@ -14,7 +14,8 @@ OrgChart.prototype.initTree = function(callback, event){
 	$('<div id="orgChartContainer"></div>').appendTo('body').click(window.orgChart.hideChart);
 	$('<div id="orgChart"></div>').appendTo('#orgChartContainer');
 	$("#orgChart").append($("<div>").load("../OrgChart.html"));
-	$("#orgChart").css("border","1px solid black");
+	//prevent clicks on orgChart window from dismissing window
+	$("#orgChart").css("border","1px solid black").click(function(event){event.stopPropagation();}); 
 	$('<div class="floaterExitButton"></div>').appendTo('#orgChart').click(window.orgChart.hideChart);
 	$.ajax({
 	  dataType: "json",
