@@ -58,6 +58,9 @@ OrgChart.prototype.showChart = function(event){
 	//we need to make sure that we're checking for this condition, because this potentially breaks the orgchart 
 	if(d3.select("#orgChart svg").selectAll("g.node")[0] == undefined){
 		console.log('Quick double click on orgChart.show occurred.');
+		$("#orgChartContainer").remove();
+		window.orgChart.alreadyBuilt = 1; 
+		window.orgChart.initTree(window.orgChart.showChart, event); 
 		return;
 	}
 	//find person's position on orgChart
