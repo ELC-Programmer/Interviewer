@@ -110,8 +110,8 @@ InterviewView.prototype.onAddToApplication = function()
 					.removeClass("question-prototype")
 					.addClass("question")
 					.attr("question-id", i);
-		if(!(i%2)) //add a border between the questions
-			$(obj).css("border-bottom","1px solid black"); 
+		// if(!(i%2)) //add a border between the questions
+		$(obj).css("border-bottom","1px solid black"); 
 		obj.appendTo(pt.parent());
 		if(!this.application.interviewees[this.options.interviewee.name][question.prompt])	//set pausedAt value to 0 (initial) if not already set
 			this.application.interviewees[this.options.interviewee.name][question.prompt] = 0; 
