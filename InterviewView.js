@@ -14,6 +14,9 @@ extend(StackView, InterviewView);
  * @property {Interviewee} options.interviewee - The interviewee.
  * @property {boolean} [options.canInterrupt=false] - If true, the user can ask a new question or go back in the middle of a response.
  * @property {boolean} [options.canRepeat=false] - If true, the user can ask the same question more than once.
+ * @property {boolean|number} [options.idleAfter=false] - The number of seconds to wait after finishing a video before playing the idle video. If false, never play the idle video.
+ * @property {string} [options.helpPrompt="Help"] - The prompt for the help button.
+ * @property {boolean|string} [options.helpContent=false] - The HTML of the help dialog. If false, omit the help dialog.
  */
 /**
  * @property {InterviewView~Options} options - An object of keyed options for the view.
@@ -21,7 +24,10 @@ extend(StackView, InterviewView);
 InterviewView.prototype.options = {
 	interviewee: undefined,
 	canInterrupt: false,
-	canRepeat: false
+	canRepeat: false,
+	idleAfter: false,
+	helpPrompt: "Help",
+	helpContent: false
 };
 
 /**
@@ -44,10 +50,12 @@ InterviewView.prototype.onAddToApplication = function()
 {
 	let scope = this;
 	let interviewee = this.options.interviewee;
-	this.firstQuestion = true;
 	if(!this.application.interviewees[this.options.interviewee.name])
 		this.application.interviewees[this.options.interviewee.name] = {};
 
+	// Interviewee Portrait
+	this.DOMObject.find(".interviewee-portrait").attr("src", interviewee.profileImage);
+	
 	let pt = this.DOMObject.find(".question-prototype");
 
 	// Setup the question click handler
@@ -60,12 +68,9 @@ InterviewView.prototype.onAddToApplication = function()
 			//perform setup
 			$(".video-prompt").prop("hidden",true);
 			$(".video-error").hide();
-			$(".interview-video").prop("hidden",false);
-			if(scope.firstQuestion){ 
-				scope.flashTimeInstruction();
-				scope.firstQuestion = false;
-			}
-			if(scope.isClockRunning()){	//if we have just switched to a new question
+			$(".interview-video").show();
+			
+			if(scope.isClockRunning() && scope.currQuestion){	//if we have just switched to a new question
 				//if you cannot interrupt this speaker
 				if(!scope.options.canInterrupt) return;
 				//if the previous video has not finished playing, save the point where it was paused
@@ -82,16 +87,29 @@ InterviewView.prototype.onAddToApplication = function()
 			scope.DOMObject.find(".interview-video").attr('src',interviewee.videoDirectory + question.responseVideo);
 			scope.DOMObject.find(".interview-video")[0].currentTime = scope.application.interviewees[scope.options.interviewee.name][question.prompt];
 			scope.currQuestion = question;
-
-			// Disable the question only when video is finished
-			scope.DOMObject.find(".interview-video").on('ended',()=>{
-				if (!scope.options.canRepeat)
+			
+			// On video end
+			scope.DOMObject.find(".interview-video")[0].addEventListener("ended", function() {
+				if (scope.currQuestion !== undefined) // this wasn't the idle video
 				{
-					question.disabled = true;
-					$(this).toggleClass("question-disabled", question.disabled == true);
-					scope.stopClock();
+					if (scope.currQuestion.endInterview) {
+						interviewee.timeRemaining = 0;
+					}
+					scope.currQuestion = undefined;
+					scope.idleSince = interviewee.timeRemaining;
 				}
 			});
+			
+			// Mark the interview as in-progress
+			interviewee.began = true;
+			scope.updateTimeRemaining();
+			
+			// Disable the question
+			if (!scope.options.canRepeat)
+			{
+				question.disabled = true;
+				$(this).parents(".question").toggleClass("question-disabled", question.disabled == true);
+			}
 
 			// Start the clock, if necessary
 			if (!scope.isClockRunning())
@@ -110,8 +128,11 @@ InterviewView.prototype.onAddToApplication = function()
 					.removeClass("question-prototype")
 					.addClass("question")
 					.attr("question-id", i);
-		// if(!(i%2)) //add a border between the questions
-		$(obj).css("border-bottom","1px solid black"); 
+		/*
+		if(!(i%2)) //add a border between the questions
+			$(obj).css("border-bottom","1px solid black"); 
+		*/
+			
 		obj.appendTo(pt.parent());
 		if(!this.application.interviewees[this.options.interviewee.name][question.prompt])	//set pausedAt value to 0 (initial) if not already set
 			this.application.interviewees[this.options.interviewee.name][question.prompt] = 0; 
@@ -119,6 +140,28 @@ InterviewView.prototype.onAddToApplication = function()
 	
 	// Hide the prototype
 	pt.hide();
+	
+	// Help
+	this.helpDialog = this.DOMObject.find("#help-dialog")
+		.attr("title", this.options.helpPrompt)
+		.html(this.options.helpContent)
+		.dialog({
+			autoOpen: false,
+			resizable: false,
+			draggable: false,
+			width: "50vw",
+			maxHeight: 600,
+			classes: {
+				"ui-dialog": "help-dialog"
+			},
+			position: { my: "center top", at: "center bottom", of: this.DOMObject.find(".interview-view-header") }
+		});
+	this.DOMObject.find(".help-button")
+		.attr("value", this.options.helpPrompt)
+		.toggle(this.options.helpContent !== false)
+		.click(function() {
+			scope.helpDialog.dialog("open");
+		});
 	
 	// Back Button
 	this.DOMObject.find(".back").click(function() {
@@ -141,7 +184,11 @@ InterviewView.prototype.onShow = function()
 	
 	// Header
 	this.DOMObject.find(".name").text(interviewee.name);
-	this.DOMObject.find(".title").text(interviewee.title).click(orgChartAttrs,window.orgChart.showChart);
+	this.DOMObject.find(".title").text(interviewee.title);
+	if (window.orgChart)
+	{
+		this.DOMObject.find(".title").click(orgChartAttrs,window.orgChart.showChart);
+	}
 	
 	// Questions
 	this.DOMObject.find(".question").each(function() {
@@ -154,15 +201,11 @@ InterviewView.prototype.onShow = function()
 	});
 	
 	// Clock
+	if (interviewee.began) {
+		this.startClock();
+		this.idleSince = interviewee.timeRemaining;
+	}
 	this.updateTimeRemaining();
-}
-
-
-/**
- * Flashes warning that timer begins now
- */
-InterviewView.prototype.flashTimeInstruction = function(){
-	$(".time-container").animate({ backgroundColor:"#F3DE8A"},1500,function(){ $(".time-container").animate({ backgroundColor:"transparent"}, 1500) });
 }
 
 /**
@@ -171,6 +214,8 @@ InterviewView.prototype.flashTimeInstruction = function(){
 InterviewView.prototype.onHide = function()
 {
 	this.stopClock();
+	
+	this.helpDialog.dialog("close");
 }
 
 /**
@@ -183,7 +228,15 @@ InterviewView.prototype.updateTimeRemaining = function()
 	this.DOMObject.find(".time").text(formatTime(interviewee.timeRemaining));
 	
 	this.DOMObject.toggleClass("interview-view-disabled", interviewee.disabled == true);
+	this.DOMObject.find(".time-begins-message").toggle(interviewee.began !== true);
 	this.DOMObject.find(".interviewee-disabled-message").toggle(interviewee.disabled == true);
+	
+	// Play the idle video
+	if (!interviewee.disabled && this.idleSince && interviewee.idleVideo && this.options.idleAfter !== false && this.idleSince - interviewee.timeRemaining > this.options.idleAfter)
+	{
+		this.DOMObject.find(".interview-video").show().attr('src', interviewee.videoDirectory + interviewee.idleVideo);
+		this.idleSince = false;
+	}
 }
 
 /**

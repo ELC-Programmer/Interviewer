@@ -1,8 +1,8 @@
 <?php
 
 require_once(__DIR__ . "/lib/jquery-3.3.1.min.js");
-require_once(__DIR__ . "/lib/d3.v3.min.js");
 require_once(__DIR__ . "/lib/jquery-ui.min.js");
+require_once(__DIR__ . "/lib/d3.v3.min.js");
 
 require_once(__DIR__ . "/helper.js");
 

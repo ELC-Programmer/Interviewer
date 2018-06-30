@@ -1,21 +1,25 @@
 <style>
 	.interviewee {
 		background-color: lightblue;
+		min-width: 300px;
+		margin: 6px;
 	}
 	
-	.interviewee * {
-		margin: 6px;
+	.interviewee:not(.interviewee-disabled) {
+		cursor: pointer;
 	}
 	
 	.interviewee-disabled {
 		background-color: pink;
 	}
 	.tr {
-		text-align:center;
-		padding:20px;
-		width:20vw;
-		display:inline-block;
-		margin:25px;
+		text-align: center;
+		padding: 20px;
+		padding-top: 40px;
+		padding-bottom: 10px;
+		width: 20vw;
+		display: inline-block;
+		margin: 25px;
 		
 		border: 2px solid black;
 	}
@@ -26,6 +30,7 @@
 		max-width:100%;
 		height:150px;
 		border-radius: 4px;
+		object-fit: cover;
 	}
 	.button{
 		cursor:pointer;

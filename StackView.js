@@ -5,6 +5,7 @@
  */
 var StackView = function(options)
 {
+	this.options = {};
 	for (let key in options)
 	{
 		this.options[key] = options[key];
@@ -41,6 +42,7 @@ StackView.prototype.styles = "";
 		$contents = file_get_contents($filename, true);		
 		$contents = str_replace(array("\r", "\n"), " ", $contents);
 		$contents = addslashes($contents);
+		$contents = str_replace('$LIBDIR', $_SERVER["LIBDIR"], $contents);
 		
 		echo $contents;
 	}

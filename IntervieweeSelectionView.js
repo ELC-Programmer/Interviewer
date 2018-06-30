@@ -106,7 +106,7 @@ IntervieweeSelectionView.prototype.onShow = function()
 		
 		$(this).find(".name").text(interviewee.name);
 		$(this).find(".title").text(interviewee.title)
-		$(this).find(".title").click(orgChartAttrs, window.orgChart.showChart);
+		if (window.orgChart) $(this).find(".title").click(orgChartAttrs, window.orgChart.showChart);
 		$(this).find(".image").attr("src", interviewee.profileImage);
 		$(this).find(".time").text(formatTime(interviewee.timeRemaining));
 		

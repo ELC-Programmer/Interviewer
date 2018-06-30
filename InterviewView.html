@@ -3,8 +3,8 @@
 		margin-top: 30px;
 		margin-bottom: 15px;
 		font-family: "Tajawal";
-		display:flex;
-		flex-direction:row;
+		display: flex;
+		flex-direction: row;
 	}
 	
 	.interview-view-title {
@@ -19,9 +19,17 @@
 	.time-container{
 		font-size: 18px;
 		margin-left: 80px;
-		padding:4px;
-		border-radius:5px;
+		padding: 4px;
+		border-radius: 5px;
 	}
+		.time-begins-message {
+			background-color: #777;
+		
+			border-radius: 20px;
+			padding:8px;
+			text-align:center;
+			font-size:1.2em;
+		}
 		.interviewee-disabled-message{
 			/* animation: blinker 2s linear infinite; */
 			background-color: rgb(250, 100, 100);
@@ -35,10 +43,6 @@
 			20%{
 				background-color:#ED1233;
 			}
-		}
-		#time-instruction{
-			font-style:italic;
-			margin:0;
 		}
 	.container{
 		display:flex;
@@ -56,7 +60,12 @@
 			width:70%;
 			position:relative;
 		}
-			.video-prompt, .video-error{
+			.interviewee-portrait {
+				height: 100%;
+				max-width: 100%;
+				object-fit: contain;
+			}
+			.video-error{
 				color:white;
 				text-align:center;
 			}
@@ -78,7 +87,7 @@
 			padding: 0;
 			padding-left: 20px;
 			padding-right: 20px;
-		    overflow: scroll;
+			overflow-y: scroll;
 		}
 			.question-list ul {
 				padding: 0;
@@ -86,36 +95,51 @@
 			.question-disabled {
 				color: red;
 			}
-			li{
+			.question{
 				list-style-type:none;
-				padding:8px;
+				margin-left: 5px;
+				margin-right: 5px;
+				padding-top: 15px;
+				padding-bottom: 15px;
+				padding-left: 1px;
+				padding-right: 1px;
 			}
-				li > a{
-					cursor:pointer;
+			.question:not(:last-child) {
+				border-bottom: 1px solid black;
+			}
+				.question > a {
+					cursor: pointer;
 				}
-			
+				.question-disabled > a {
+					cursor: default;
+				}
+	
+	.help-dialog {
+		font-family: Tajawal, sans-serif;
+		border: 2px solid goldenrod !important;
+	}
+	.help-dialog .ui-dialog-titlebar-close {
+		border: 1px solid goldenrod !important;
+	}
+	.help-dialog .ui-dialog-titlebar-close:hover {
+		background-color: goldenrod !important;
+	}
 </style>
 
 <div class="interview-view-header">
 	<span class="interview-view-title sub-titles">Interviewing <span class="name">NAME</span> [<span class="title">TITLE</span>]</span>
-	<span class="time-container">
-		<span class="time">X:XX</span> Remaining
-		<p id="time-instruction">Time begins with the first question selected</p>
-	</span> 
+	<span class="time-container"><span class="time">X:XX</span> Remaining</span>
 </div>
 	
-<p class="interviewee-disabled-message sub-titles" hidden>Time's up. Please choose another interviewee.</p>
+<p class="time-begins-message sub-titles" hidden>The timer will begin when you choose your first question.</p>
+<p class="interviewee-disabled-message sub-titles" hidden>The interview is over. Please choose another interviewee.</p>
 
 
 <div class="container">
 	<div class="video-container">
-		<div class="video-prompt center-horz-vert">
-			<img class="icon" src="../assets/video-player.png">
-			<br />
-			<p class="sub-titles">Please select a video option on the right.</p> 
-		</div>	
+		<img class="interviewee-portrait center-horz-vert"/>
 		<div class="video-error center-horz-vert" hidden>
-			<img class="icon" style="width:90%" src="../assets/broken-video.png">
+			<img class="icon" style="width:90%" src="images/broken-video.png">
 			<br />
 			<p class="sub-titles">Video link is broken.</p>
 		</div>	
@@ -132,5 +156,7 @@
 	</div>
 </div>
 <div style="width:100%; text-align:center;">
-	<input type="button" class="back gen-button center-button-full-width success sub-titles" value="back" />
+	<input type="button" class="help-button gen-button center-button-full-width success sub-titles" value="help" />
+	<input type="button" class="back gen-button center-button-full-width success sub-titles" value="Back" />
 </div>
+<div id="help-dialog" title="Help">HELP CONTENT HERE</div>

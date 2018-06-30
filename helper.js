@@ -39,6 +39,10 @@ function formatTime(seconds)
 	
 	// Minutes
 	let minutes = Math.floor(seconds / 60);
+	if (minutes < 10)
+	{
+		out += "0";
+	}
 	out += minutes + ":";
 	seconds %= 60;
 	
