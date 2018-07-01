@@ -53,10 +53,9 @@ VideoMessageView.prototype.onAddToApplication = function()
 	let videoElement = $(this.DOMObject).find(".video-element");
 	let nextButton = $(this.DOMObject).find(".continue");
 	//check if intro video file exists, if not show error message
-	window.style.checkIfFileExists(this.options.videoURL, 
-		()=>{
-			$(".video-prompt").show();
-			//videoElement.css("background-color","#4C3523");
+	window.style.checkIfFileExists(this.options.videoURL, function () {
+		$(".video-prompt").show();
+		//videoElement.css("background-color","#4C3523");
 	});
 
 	let video = '<source src="'+this.options.videoURL+'" type="video/mp4"></source>';
@@ -67,7 +66,7 @@ VideoMessageView.prototype.onAddToApplication = function()
 	if(this.options.autoplay) $(videoElement).prop("autoplay","autoplay");
 	if(!this.options.canSkip) $(nextButton).prop("disabled",true);
 
-	$(videoElement).on('ended',()=>{
+	$(videoElement).on('ended', function () {
 		this.options.canSkip = true;
 		enableVideoControls();
 		$(nextButton).prop("disabled",false);

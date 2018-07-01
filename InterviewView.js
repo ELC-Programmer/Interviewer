@@ -78,14 +78,16 @@ InterviewView.prototype.onAddToApplication = function()
 			}
 
 			//check if selected video exists, if not, show error message
-			window.style.checkIfFileExists(interviewee.videoDirectory + question.responseVideo, ()=>{
+			window.style.checkIfFileExists(interviewee.videoDirectory + question.responseVideo, function () {
 				$(".video-error").show();
 				scope.stopClock();
 			});
 			
 			// Play the response video
-			scope.DOMObject.find(".interview-video").attr('src',interviewee.videoDirectory + question.responseVideo);
-			scope.DOMObject.find(".interview-video")[0].currentTime = scope.application.interviewees[scope.options.interviewee.name][question.prompt];
+			let video = scope.DOMObject.find(".interview-video");
+			video.attr('src',interviewee.videoDirectory + question.responseVideo);
+			if (video[0].currentTime !== undefined);
+				video[0].currentTime = scope.application.interviewees[scope.options.interviewee.name][question.prompt];
 			scope.currQuestion = question;
 			
 			// On video end
