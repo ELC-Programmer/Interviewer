@@ -86,11 +86,11 @@ StackApplication.prototype.push = function(view, options)
 	callback = function(){
 		that.container.children(".stack-view-container:nth-last-child(2)").hide();
 		that.viewStack.push(view);
+		view.onShow();
 	}
 	if(options && options['transition']){
 		viewContainer.hide();
 		view.addToApplication(that, viewContainer);
-		view.onShow();
 		this.container.children(".stack-view-container:nth-last-child(2)").css("position","relative");
 		window.style.transition([this.container.children(".stack-view-container:nth-last-child(2)"),this.container.children(".stack-view-container:last")], 
 			callback, 
