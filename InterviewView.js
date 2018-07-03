@@ -56,6 +56,15 @@ InterviewView.prototype.onAddToApplication = function()
 	// Interviewee Portrait
 	this.DOMObject.find(".interviewee-portrait").attr("src", interviewee.profileImage);
 	
+	// Lock question list scrolling as necessary
+	let questionList = $(".question-list")[0];
+	questionList.addEventListener("scroll", function() {
+		if (scope.questionListScrollPosition !== undefined) {
+			questionList.scrollTop = scope.questionListScrollPosition;
+		}
+	});
+
+	
 	let pt = this.DOMObject.find(".question-prototype");
 
 	// Setup the question click handler
@@ -83,12 +92,17 @@ InterviewView.prototype.onAddToApplication = function()
 				scope.stopClock();
 			});
 			
+			// Record the question list scroll position
+			scope.questionListScrollPosition = questionList.scrollTop;
+			
 			// Play the response video
 			let video = scope.DOMObject.find(".interview-video");
 			video.attr('src',interviewee.videoDirectory + question.responseVideo);
 			if (video[0].currentTime !== undefined);
 				video[0].currentTime = scope.application.interviewees[scope.options.interviewee.name][question.prompt];
 			scope.currQuestion = question;
+			
+			scope.idleSince = false;
 			
 			// On video end
 			scope.DOMObject.find(".interview-video")[0].addEventListener("ended", function() {
@@ -100,6 +114,8 @@ InterviewView.prototype.onAddToApplication = function()
 					scope.currQuestion = undefined;
 					scope.idleSince = interviewee.timeRemaining;
 				}
+				
+				scope.questionListScrollPosition = undefined;
 			});
 			
 			// Mark the interview as in-progress
