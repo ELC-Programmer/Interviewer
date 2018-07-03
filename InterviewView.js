@@ -59,7 +59,6 @@ InterviewView.prototype.onAddToApplication = function()
 	// Don't run clock while video is loading
 	let videoElement = scope.DOMObject.find(".interview-video");
 	let loadingListener = function(e) {
-		videoElement.hide();
 		if (scope.currQuestion) // unless it's the idle video
 			scope.stopClock();
 	};
@@ -112,6 +111,7 @@ InterviewView.prototype.onAddToApplication = function()
 			// Play the response video
 			let video = scope.DOMObject.find(".interview-video");
 			scope.DOMObject.find(".interviewee-portrait").attr("src", video.attr("poster"));
+			video.hide(); // it'll reappear on the "playing" event
 			video.attr('src',interviewee.videoDirectory + question.responseVideo);
 			if (video[0].currentTime !== undefined);
 			//	video[0].currentTime = scope.application.interviewees[scope.options.interviewee.name][question.prompt];
