@@ -69,15 +69,6 @@ InterviewView.prototype.onAddToApplication = function()
 		scope.startClock();
 	});
 	
-	// Lock question list scrolling as necessary
-	let questionList = $(".question-list")[0];
-	questionList.addEventListener("scroll", function() {
-		if (scope.questionListScrollPosition !== undefined) {
-			questionList.scrollTop = scope.questionListScrollPosition;
-		}
-	});
-
-	
 	let pt = this.DOMObject.find(".question-prototype");
 
 	// Setup the question click handler
@@ -105,8 +96,8 @@ InterviewView.prototype.onAddToApplication = function()
 				scope.stopClock();
 			});
 			
-			// Record the question list scroll position
-			scope.questionListScrollPosition = questionList.scrollTop;
+			// Lock the question list scroll
+			scope.DOMObject.find(".question-list").css("overflow-y", "hidden");
 			
 			// Play the response video
 			let video = scope.DOMObject.find(".interview-video");
@@ -130,7 +121,7 @@ InterviewView.prototype.onAddToApplication = function()
 					scope.idleSince = interviewee.timeRemaining;
 				}
 				
-				scope.questionListScrollPosition = undefined;
+				scope.DOMObject.find(".question-list").css("overflow-y", "scroll");
 			});
 			
 			// Mark the interview as in-progress
