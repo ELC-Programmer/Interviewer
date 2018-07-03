@@ -109,7 +109,7 @@ InterviewView.prototype.onAddToApplication = function()
 			
 			// Play the response video
 			let video = scope.DOMObject.find(".interview-video");
-			scope.DOMObject.find(".interviewee-portrait").hide();
+			scope.DOMObject.find(".interviewee-portrait").attr("src", video.attr("poster"));
 			video.attr('src',interviewee.videoDirectory + question.responseVideo);
 			if (video[0].currentTime !== undefined);
 			//	video[0].currentTime = scope.application.interviewees[scope.options.interviewee.name][question.prompt];
