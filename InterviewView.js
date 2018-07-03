@@ -57,14 +57,16 @@ InterviewView.prototype.onAddToApplication = function()
 	this.DOMObject.find(".interviewee-portrait").attr("src", interviewee.profileImage);
 	
 	// Don't run clock while video is loading
-	let videoElement = scope.DOMObject.find(".interview-video")[0];
+	let videoElement = scope.DOMObject.find(".interview-video");
 	let loadingListener = function(e) {
+		videoElement.hide();
 		if (scope.currQuestion) // unless it's the idle video
 			scope.stopClock();
 	};
-	videoElement.addEventListener("waiting", loadingListener);
-	videoElement.addEventListener("loadstart", loadingListener);
-	videoElement.addEventListener("playing", function() {
+	videoElement[0].addEventListener("waiting", loadingListener);
+	videoElement[0].addEventListener("loadstart", loadingListener);
+	videoElement[0].addEventListener("playing", function() {
+		videoElement.show();
 		scope.startClock();
 	});
 	
