@@ -56,6 +56,16 @@ InterviewView.prototype.onAddToApplication = function()
 	// Interviewee Portrait
 	this.DOMObject.find(".interviewee-portrait").attr("src", interviewee.profileImage);
 	
+	// Don't run clock while video is loading
+	let videoElement = scope.DOMObject.find(".interview-video")[0];
+	videoElement.addEventListener("waiting", function() {
+		if (scope.currQuestion) // unless it's the idle video
+			scope.stopClock();
+	});
+	videoElement.addEventListener("playing", function() {
+		scope.startClock();
+	});
+	
 	// Lock question list scrolling as necessary
 	let questionList = $(".question-list")[0];
 	questionList.addEventListener("scroll", function() {
@@ -97,6 +107,7 @@ InterviewView.prototype.onAddToApplication = function()
 			
 			// Play the response video
 			let video = scope.DOMObject.find(".interview-video");
+			scope.DOMObject.find(".interviewee-portrait").hide();
 			video.attr('src',interviewee.videoDirectory + question.responseVideo);
 			if (video[0].currentTime !== undefined);
 				video[0].currentTime = scope.application.interviewees[scope.options.interviewee.name][question.prompt];
