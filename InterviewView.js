@@ -59,14 +59,12 @@ InterviewView.prototype.onAddToApplication = function()
 	// Don't run clock while video is loading
 	let videoElement = scope.DOMObject.find(".interview-video")[0];
 	let loadingListener = function(e) {
-		console.log(e);
 		if (scope.currQuestion) // unless it's the idle video
 			scope.stopClock();
 	};
 	videoElement.addEventListener("waiting", loadingListener);
 	videoElement.addEventListener("loadstart", loadingListener);
 	videoElement.addEventListener("playing", function() {
-		console.log("PLAYING");
 		scope.startClock();
 	});
 	
@@ -114,7 +112,7 @@ InterviewView.prototype.onAddToApplication = function()
 			scope.DOMObject.find(".interviewee-portrait").hide();
 			video.attr('src',interviewee.videoDirectory + question.responseVideo);
 			if (video[0].currentTime !== undefined);
-				video[0].currentTime = scope.application.interviewees[scope.options.interviewee.name][question.prompt];
+			//	video[0].currentTime = scope.application.interviewees[scope.options.interviewee.name][question.prompt];
 			scope.currQuestion = question;
 			
 			scope.idleSince = false;
