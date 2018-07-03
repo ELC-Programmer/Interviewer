@@ -63,7 +63,7 @@ InterviewView.prototype.onAddToApplication = function()
 			scope.stopClock();
 	};
 	videoElement.addEventListener("waiting", loadingListener);
-	videoElement.addEventListener("loadStart", loadingListener);
+	videoElement.addEventListener("loadstart", loadingListener);
 	videoElement.addEventListener("playing", function() {
 		scope.startClock();
 	});
