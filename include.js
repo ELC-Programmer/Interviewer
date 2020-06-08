@@ -10,12 +10,13 @@ require_once(__DIR__ . "/StackApplication.js");
 require_once(__DIR__ . "/StackView.js");
 
 require_once(__DIR__ . "/VideoMessageView.js");
+require_once(__DIR__ . "/YouTubeVideoMessageView.js");
 require_once(__DIR__ . "/TextMessageView.js");
 
 require_once(__DIR__ . "/Interviewee.js");
 require_once(__DIR__ . "/IntervieweeSelectionView.js");
 require_once(__DIR__ . "/InterviewView.js");
-require_once(__DIR__ . "/InterviewYouTubeView.js");
+require_once(__DIR__ . "/YouTubeInterviewView.js");
 require_once(__DIR__ . "/Styling.js");
 require_once(__DIR__ . "/OrgChart.js");
 ?>

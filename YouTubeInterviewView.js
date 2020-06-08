@@ -2,15 +2,15 @@
  * A view where the user conducts a virtual interview.
  * @class
  * @extends StackView
- * @param {InterviewYouTubeView~Options} options - An object of keyed options for initializing the view.
+ * @param {YouTubeInterviewView~Options} options - An object of keyed options for initializing the view.
  */
-function InterviewYouTubeView(options) {
+function YouTubeInterviewView(options) {
     StackView.call(this, options)
 }
-extend(StackView, InterviewYouTubeView)
+extend(StackView, YouTubeInterviewView)
 
 /**
- * @typedef {Object} InterviewYouTubeView~Options
+ * @typedef {Object} YouTubeInterviewView~Options
  * @property {Interviewee} options.interviewee - The interviewee.
  * @property {boolean} [options.canInterrupt=false] - If true, the user can ask a new question or go back in the middle of a response.
  * @property {boolean} [options.canRepeat=false] - If true, the user can ask the same question more than once.
@@ -19,9 +19,9 @@ extend(StackView, InterviewYouTubeView)
  * @property {boolean|string} [options.helpContent=false] - The HTML of the help dialog. If false, omit the help dialog.
  */
 /**
- * @property {InterviewYouTubeView~Options} options - An object of keyed options for the view.
+ * @property {YouTubeInterviewView~Options} options - An object of keyed options for the view.
  */
-InterviewYouTubeView.prototype.options = {
+YouTubeInterviewView.prototype.options = {
     interviewee: undefined,
     canInterrupt: false,
     canRepeat: false,
@@ -34,19 +34,19 @@ InterviewYouTubeView.prototype.options = {
  * @property {string} HTMLSource - The HTML source for this view.
  * @override
  */
-InterviewYouTubeView.prototype.HTMLSource = '<?php StackViewSource() ?>'
+YouTubeInterviewView.prototype.HTMLSource = '<?php StackViewSource() ?>'
 
 /**
  * @property {string} styles - A CSS string containing styles for this view.
  * @override
  */
-InterviewYouTubeView.prototype.styles =
+YouTubeInterviewView.prototype.styles =
     "<?php FileContents(__DIR__ . '/styles.css') ?>"
 /**
  * This function is called when the view is first shown.
  * @override
  */
-InterviewYouTubeView.prototype.onAddToApplication = function () {
+YouTubeInterviewView.prototype.onAddToApplication = function () {
     let self = this
     let scope = this
     let interviewee = this.options.interviewee
@@ -57,6 +57,7 @@ InterviewYouTubeView.prototype.onAddToApplication = function () {
     this.player = new YT.Player('player', {
         height: '480',
         width: '640',
+        playerVars: { modestbranding: 1, controls: 0, disablekb: 1 },
         events: {
             onReady: function () {
                 console.log('ready')
@@ -229,7 +230,7 @@ InterviewYouTubeView.prototype.onAddToApplication = function () {
  * This function is called whenever the view was previously not shown, but now is shown.
  * @override
  */
-InterviewYouTubeView.prototype.onShow = function () {
+YouTubeInterviewView.prototype.onShow = function () {
     let scope = this
     let interviewee = this.options.interviewee
     let orgChartAttrs = {
@@ -269,7 +270,7 @@ InterviewYouTubeView.prototype.onShow = function () {
 /**
  * This function is called whenever the view was previously shown, but now is not anymore.
  */
-InterviewYouTubeView.prototype.onHide = function () {
+YouTubeInterviewView.prototype.onHide = function () {
     this.stopClock()
 
     this.helpDialog.dialog('close')
@@ -278,7 +279,7 @@ InterviewYouTubeView.prototype.onHide = function () {
 /**
  * Update the time remaining that is displayed to the user, as well as the time's up display.
  */
-InterviewYouTubeView.prototype.updateTimeRemaining = function () {
+YouTubeInterviewView.prototype.updateTimeRemaining = function () {
     let interviewee = this.options.interviewee
 
     this.DOMObject.find('.time').text(formatTime(interviewee.timeRemaining))
@@ -310,20 +311,20 @@ InterviewYouTubeView.prototype.updateTimeRemaining = function () {
 /**
  * @property {(boolean|number)} clockID - The interval ID of the clock running every second, or false if the clock is not running.
  */
-InterviewYouTubeView.prototype.clockID = false
+YouTubeInterviewView.prototype.clockID = false
 
 /**
  * Check if the clock is running.
  * @return {boolean} - Whether or not the clock is currently running.
  */
-InterviewYouTubeView.prototype.isClockRunning = function () {
+YouTubeInterviewView.prototype.isClockRunning = function () {
     return this.clockID !== false
 }
 
 /**
  * Start the clock.
  */
-InterviewYouTubeView.prototype.startClock = function () {
+YouTubeInterviewView.prototype.startClock = function () {
     if (!this.isClockRunning()) {
         this.clockID = setInterval(this.tickClock, 1000, this)
     }
@@ -332,7 +333,7 @@ InterviewYouTubeView.prototype.startClock = function () {
 /**
  * Tick the clock forward by one second.
  */
-InterviewYouTubeView.prototype.tickClock = function (scope) {
+YouTubeInterviewView.prototype.tickClock = function (scope) {
     let interviewee = scope.options.interviewee
 
     if (interviewee.timeRemaining > 0) {
@@ -350,7 +351,7 @@ InterviewYouTubeView.prototype.tickClock = function (scope) {
 /**
  * Stop the clock.
  */
-InterviewYouTubeView.prototype.stopClock = function () {
+YouTubeInterviewView.prototype.stopClock = function () {
     if (this.isClockRunning()) {
         clearInterval(this.clockID)
         this.clockID = false

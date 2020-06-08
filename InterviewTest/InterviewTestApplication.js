@@ -12,17 +12,27 @@ var InterviewTestApplication = function(container, toStyle) {
 	let selectionView = new IntervieweeSelectionView({
 		interviewees: interviewees,
 		interviewTimeLimit: 300,
-		interviewViewType: InterviewYouTubeView,
+		interviewViewType: YouTubeInterviewView,
 		interviewViewOptions: {
 			canInterrupt: false
 		}
 	});
 	
-	let videoView = new VideoMessageView({
-		videoURL: "videos/intro.mp4",
+	let videoView2 = new YouTubeVideoMessageView({
+		videoURL: "7xZgQ4Gocho",
 		title: "Eugene Stevens - CEO",
 		continuePrompt: "Continue",
 		nextView: selectionView,
+		autoplay: true,
+		transition: "slideLeft",
+		canSkip: true
+	})
+
+        let videoView = new YouTubeVideoMessageView({
+		videoURL: "7xZgQ4Gocho",
+		title: "Eugene Stevens - CEO",
+		continuePrompt: "Continue",
+		nextView: videoView2,
 		autoplay: true,
 		transition: "slideLeft",
 		canSkip: true
