@@ -1,5 +1,6 @@
 <link href="https://fonts.googleapis.com/css?family=Tajawal|Merriweather" rel="stylesheet">
 
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
 	<?php
 		require_once(__DIR__ . '/../include.js');

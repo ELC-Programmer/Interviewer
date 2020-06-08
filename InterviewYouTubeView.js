@@ -2,15 +2,15 @@
  * A view where the user conducts a virtual interview.
  * @class
  * @extends StackView
- * @param {InterviewView~Options} options - An object of keyed options for initializing the view.
+ * @param {InterviewYouTubeView~Options} options - An object of keyed options for initializing the view.
  */
-function InterviewView(options) {
+function InterviewYouTubeView(options) {
     StackView.call(this, options)
 }
-extend(StackView, InterviewView)
+extend(StackView, InterviewYouTubeView)
 
 /**
- * @typedef {Object} InterviewView~Options
+ * @typedef {Object} InterviewYouTubeView~Options
  * @property {Interviewee} options.interviewee - The interviewee.
  * @property {boolean} [options.canInterrupt=false] - If true, the user can ask a new question or go back in the middle of a response.
  * @property {boolean} [options.canRepeat=false] - If true, the user can ask the same question more than once.
@@ -19,9 +19,9 @@ extend(StackView, InterviewView)
  * @property {boolean|string} [options.helpContent=false] - The HTML of the help dialog. If false, omit the help dialog.
  */
 /**
- * @property {InterviewView~Options} options - An object of keyed options for the view.
+ * @property {InterviewYouTubeView~Options} options - An object of keyed options for the view.
  */
-InterviewView.prototype.options = {
+InterviewYouTubeView.prototype.options = {
     interviewee: undefined,
     canInterrupt: false,
     canRepeat: false,
@@ -34,24 +34,61 @@ InterviewView.prototype.options = {
  * @property {string} HTMLSource - The HTML source for this view.
  * @override
  */
-InterviewView.prototype.HTMLSource = '<?php StackViewSource() ?>'
+InterviewYouTubeView.prototype.HTMLSource = '<?php StackViewSource() ?>'
 
 /**
  * @property {string} styles - A CSS string containing styles for this view.
  * @override
  */
-InterviewView.prototype.styles =
+InterviewYouTubeView.prototype.styles =
     "<?php FileContents(__DIR__ . '/styles.css') ?>"
-
 /**
  * This function is called when the view is first shown.
  * @override
  */
-InterviewView.prototype.onAddToApplication = function () {
+InterviewYouTubeView.prototype.onAddToApplication = function () {
+    let self = this
     let scope = this
     let interviewee = this.options.interviewee
     if (!this.application.interviewees[this.options.interviewee.name])
         this.application.interviewees[this.options.interviewee.name] = {}
+
+    // youtube
+    this.player = new YT.Player('player', {
+        height: '480',
+        width: '640',
+        events: {
+            onReady: function () {
+                console.log('ready')
+            },
+        },
+    })
+
+    this.player.addEventListener('onStateChange', function (e) {
+        if (e.data === YT.PlayerState.PLAYING) {
+            scope.startClock()
+        }
+        if (e.data === YT.PlayerState.ENDED) {
+            if (scope.currQuestion !== undefined) {
+                // this wasn't the idle video
+                if (scope.currQuestion.endInterview) {
+                    interviewee.timeRemaining = 0
+                }
+                scope.currQuestion = undefined
+                scope.idleSince = interviewee.timeRemaining
+            }
+
+            scope.DOMObject.find('.question-list').css('overflow-y', 'scroll')
+        }
+        // dont start clock if buffer
+        if (e.data === YT.PlayerState.BUFFERING) {
+            scope.stopClock()
+        }
+        // no pausing allowed
+        if (e.data === YT.PlayerState.PAUSED) {
+            self.player.playVideo()
+        }
+    })
 
     // Interviewee Portrait
     this.DOMObject.find('.interviewee-portrait').attr(
@@ -60,18 +97,11 @@ InterviewView.prototype.onAddToApplication = function () {
     )
 
     // Don't run clock while video is loading
-    let videoElement = scope.DOMObject.find('.interview-video')
     let loadingListener = function (e) {
         if (scope.currQuestion)
             // unless it's the idle video
             scope.stopClock()
     }
-    videoElement[0].addEventListener('waiting', loadingListener)
-    videoElement[0].addEventListener('loadstart', loadingListener)
-    videoElement[0].addEventListener('playing', function () {
-        videoElement.show()
-        scope.startClock()
-    })
 
     let pt = this.DOMObject.find('.question-prototype')
 
@@ -85,65 +115,30 @@ InterviewView.prototype.onAddToApplication = function () {
             $('.video-prompt').prop('hidden', true)
             $('.video-error').hide()
             $('.interview-video').show()
+            $('#player').addClass('overlay')
 
             if (scope.isClockRunning() && scope.currQuestion) {
                 //if we have just switched to a new question
                 //if you cannot interrupt this speaker
                 if (!scope.options.canInterrupt) return
                 //if the previous video has not finished playing, save the point where it was paused
-                scope.application.interviewees[scope.options.interviewee.name][
-                    scope.currQuestion.prompt
-                ] = scope.DOMObject.find('.interview-video')[0].currentTime
+                //TODO: modify to fit youtube
+                // scope.application.interviewees[scope.options.interviewee.name][
+                //     scope.currQuestion.prompt
+                // ] = scope.DOMObject.find('.interview-video')[0].currentTime
             }
-
-            //check if selected video exists, if not, show error message
-            window.style.checkIfFileExists(
-                interviewee.videoDirectory + question.responseVideo,
-                function () {
-                    $('.video-error').show()
-                    scope.stopClock()
-                }
-            )
 
             // Lock the question list scroll
             scope.DOMObject.find('.question-list').css('overflow-y', 'hidden')
 
             // Play the response video
-            let video = scope.DOMObject.find('.interview-video')
-            scope.DOMObject.find('.interviewee-portrait').attr(
-                'src',
-                video.attr('poster')
-            )
-            video.hide() // it'll reappear on the "playing" event
-            video.attr(
-                'src',
-                interviewee.videoDirectory + question.responseVideo
-            )
-            if (video[0].currentTime !== undefined);
-            //	video[0].currentTime = scope.application.interviewees[scope.options.interviewee.name][question.prompt];
+
+            console.log(question.responseVideo)
+            self.player.loadVideoById(question.responseVideo)
+
             scope.currQuestion = question
 
             scope.idleSince = false
-
-            // On video end
-            scope.DOMObject.find('.interview-video')[0].addEventListener(
-                'ended',
-                function () {
-                    if (scope.currQuestion !== undefined) {
-                        // this wasn't the idle video
-                        if (scope.currQuestion.endInterview) {
-                            interviewee.timeRemaining = 0
-                        }
-                        scope.currQuestion = undefined
-                        scope.idleSince = interviewee.timeRemaining
-                    }
-
-                    scope.DOMObject.find('.question-list').css(
-                        'overflow-y',
-                        'scroll'
-                    )
-                }
-            )
 
             // Mark the interview as in-progress
             interviewee.began = true
@@ -225,7 +220,7 @@ InterviewView.prototype.onAddToApplication = function () {
         if (scope.options.interviewee.timeRemaining > 0 && scope.currQuestion)
             scope.application.interviewees[scope.options.interviewee.name][
                 scope.currQuestion.prompt
-            ] = scope.DOMObject.find('.interview-video')[0].currentTime
+            ] = self.player.getCurrentTime()
         scope.application.pop(interviewee, 'slideRight')
     })
 }
@@ -234,7 +229,7 @@ InterviewView.prototype.onAddToApplication = function () {
  * This function is called whenever the view was previously not shown, but now is shown.
  * @override
  */
-InterviewView.prototype.onShow = function () {
+InterviewYouTubeView.prototype.onShow = function () {
     let scope = this
     let interviewee = this.options.interviewee
     let orgChartAttrs = {
@@ -274,7 +269,7 @@ InterviewView.prototype.onShow = function () {
 /**
  * This function is called whenever the view was previously shown, but now is not anymore.
  */
-InterviewView.prototype.onHide = function () {
+InterviewYouTubeView.prototype.onHide = function () {
     this.stopClock()
 
     this.helpDialog.dialog('close')
@@ -283,7 +278,7 @@ InterviewView.prototype.onHide = function () {
 /**
  * Update the time remaining that is displayed to the user, as well as the time's up display.
  */
-InterviewView.prototype.updateTimeRemaining = function () {
+InterviewYouTubeView.prototype.updateTimeRemaining = function () {
     let interviewee = this.options.interviewee
 
     this.DOMObject.find('.time').text(formatTime(interviewee.timeRemaining))
@@ -307,9 +302,7 @@ InterviewView.prototype.updateTimeRemaining = function () {
         this.options.idleAfter !== false &&
         this.idleSince - interviewee.timeRemaining > this.options.idleAfter
     ) {
-        this.DOMObject.find('.interview-video')
-            .show()
-            .attr('src', interviewee.videoDirectory + interviewee.idleVideo)
+        this.player.loadVideoById(interviewee.idleVideo)
         this.idleSince = false
     }
 }
@@ -317,20 +310,20 @@ InterviewView.prototype.updateTimeRemaining = function () {
 /**
  * @property {(boolean|number)} clockID - The interval ID of the clock running every second, or false if the clock is not running.
  */
-InterviewView.prototype.clockID = false
+InterviewYouTubeView.prototype.clockID = false
 
 /**
  * Check if the clock is running.
  * @return {boolean} - Whether or not the clock is currently running.
  */
-InterviewView.prototype.isClockRunning = function () {
+InterviewYouTubeView.prototype.isClockRunning = function () {
     return this.clockID !== false
 }
 
 /**
  * Start the clock.
  */
-InterviewView.prototype.startClock = function () {
+InterviewYouTubeView.prototype.startClock = function () {
     if (!this.isClockRunning()) {
         this.clockID = setInterval(this.tickClock, 1000, this)
     }
@@ -339,7 +332,7 @@ InterviewView.prototype.startClock = function () {
 /**
  * Tick the clock forward by one second.
  */
-InterviewView.prototype.tickClock = function (scope) {
+InterviewYouTubeView.prototype.tickClock = function (scope) {
     let interviewee = scope.options.interviewee
 
     if (interviewee.timeRemaining > 0) {
@@ -357,7 +350,7 @@ InterviewView.prototype.tickClock = function (scope) {
 /**
  * Stop the clock.
  */
-InterviewView.prototype.stopClock = function () {
+InterviewYouTubeView.prototype.stopClock = function () {
     if (this.isClockRunning()) {
         clearInterval(this.clockID)
         this.clockID = false

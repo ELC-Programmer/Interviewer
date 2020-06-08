@@ -1,0 +1,19 @@
+[
+    {
+        "name": "John Smith",
+        "title": "CEO",
+        "profileImage": "images/smith.jpg",
+        "videoDirectory": "youtube",
+        "questions": [
+            {
+                "prompt": "Good morning, Smith. How are you?",
+                "responseVideo": "uabFRqncY8M"
+            },
+            {
+                "prompt": "So, Smith, what do you do around here?",
+                "responseVideo": "7xZgQ4Gocho"
+            }
+        ]
+    }
+]
+
