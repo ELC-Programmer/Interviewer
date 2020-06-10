@@ -7,7 +7,7 @@
 var InterviewTestApplication = function(container, toStyle) {
 	StackApplication.call(this, container);
 	
-	let interviewees = <?php require(__DIR__ . "/youtube.json"); ?>;
+	let interviewees = <?php require(__DIR__ . "/test.json"); ?>;
 	
 	let selectionView = new IntervieweeSelectionView({
 		interviewees: interviewees,
