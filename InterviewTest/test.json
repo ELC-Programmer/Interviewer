@@ -2,7 +2,7 @@
     {
         "name": "Peter Lane",
         "title": "Washaway Clean Brand Manager",
-        "profileImage": "images/selections/lane.png",
+        "profileImage": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Ccircle cx='75' cy='60' r='30' fill='%23ccc'/%3E%3Cpath d='M30 120 Q30 90 75 90 T120 120' fill='%23ccc'/%3E%3C/svg%3E",
         "videoDirectory": "videos/lane/",
         "questions": [
             {
@@ -47,7 +47,7 @@
     {
         "name": "Janet Ferguson",
         "title": "Washaway Clean CMK",
-        "profileImage": "images/selections/ferguson.png",
+        "profileImage": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Ccircle cx='75' cy='60' r='30' fill='%23ccc'/%3E%3Cpath d='M30 120 Q30 90 75 90 T120 120' fill='%23ccc'/%3E%3C/svg%3E",
         "videoDirectory": "videos/ferguson/",
         "questions": [
             {
@@ -84,7 +84,7 @@
     {
         "name": "Danny Ortega",
         "title": "TG VP of Acquisitions",
-        "profileImage": "images/selections/ortega.png",
+        "profileImage": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Ccircle cx='75' cy='60' r='30' fill='%23ccc'/%3E%3Cpath d='M30 120 Q30 90 75 90 T120 120' fill='%23ccc'/%3E%3C/svg%3E",
         "videoDirectory": "videos/ortega/",
         "questions": [
             {
@@ -174,7 +174,7 @@
     {
         "name": "Margaret Atway",
         "title": "TG In-House Marketing",
-        "profileImage": "images/selections/atway.png",
+        "profileImage": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Ccircle cx='75' cy='60' r='30' fill='%23ccc'/%3E%3Cpath d='M30 120 Q30 90 75 90 T120 120' fill='%23ccc'/%3E%3C/svg%3E",
         "videoDirectory": "videos/atway/",
         "questions": [
             {
